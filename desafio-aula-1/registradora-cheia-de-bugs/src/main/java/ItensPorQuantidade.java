@@ -8,7 +8,7 @@ public class ItensPorQuantidade {
 
     public static boolean verificaEstoque(String item, int quantidade){
         if(item.equals("pao")){
-            if(pao >= quantidade){
+            if(pao >= quantidade * 60){
                 return true;   
             }
         }
