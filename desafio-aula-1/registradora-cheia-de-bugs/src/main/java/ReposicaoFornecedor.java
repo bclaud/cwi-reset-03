@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class ReposicaoFornecedor {
 
-    static void reporItem(String item) {
+    static void reporItem(String item, DataProjeto horario) {
         Random random = new Random();
 
         if ("leite".equals(item) && ItensPorQuantidade.leite < 12) {
