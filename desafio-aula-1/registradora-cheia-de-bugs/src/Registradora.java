@@ -2,9 +2,9 @@
 public class Registradora {
 
     public static void main(String[] args) {
-//        primeiroBug();
+       primeiroBug();
 
-        segundoBug();
+        // segundoBug();
 
 //        terceiroBug();
 //
@@ -17,6 +17,8 @@ public class Registradora {
 
     private static double registrarItem(String item, int quantidade) {
         double precoItem = RelacaoPesoPreco.retornaPrecoProduto(item, quantidade);
+
+        ItensPorQuantidade.sanduiche -= quantidade;
 
         if (QuantidadeMinimaItem.precisaReposicao(item)) {
             if ("pao".equals(item) || "sanduiche".equals(item) || "torta".equals(item)) {
@@ -42,6 +44,7 @@ public class Registradora {
         double precoTotal = registrarItem(item, quantidade);
 
         System.out.println(String.format("Valor total: %.2f", precoTotal));
+        System.out.println(ItensPorQuantidade.sanduiche);
     }
 
     private static void segundoBug() {
