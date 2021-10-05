@@ -2,7 +2,7 @@ public class ReposicaoCozinha {
 
     static void reporItem(String item, DataProjeto horario) {
 
-        if(horario.getDiaUtil() && horario.getHora() < 16 && horario.getMinuto() < 40){
+        if(horario.cozinhaEmFuncionamento() ){
             if ("pao".equals(item) && ItensPorQuantidade.pao < 600) {
                 ItensPorQuantidade.pao = 3600;
                 System.out.println("A cozinha esta repondo o " + item);
@@ -17,7 +17,7 @@ public class ReposicaoCozinha {
                 System.out.println("A cozinha esta repondo o " + item);
 
             }
-        }else{
+        }else if(!horario.cozinhaEmFuncionamento()){
             System.out.println("A cozinha esta fechada");
         }
     }

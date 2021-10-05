@@ -2,33 +2,41 @@
 public class Registradora {
 
     public static void main(String[] args) {
+        
+        System.out.println("-----Primeiro Bug -----");
         primeiroBug();
-
+        
+        System.out.println("-----Segundo Bug -----");
         segundoBug();
-
+        
+        System.out.println("-----Terceiro Bug-----");
         terceiroBug();
-
+        
+        System.out.println("-----Quarto Bug-----");
         quartoBug();
-
+        
+        System.out.println("-----Quinto Bug-----");
         quintoBug();
-
+        
+        System.out.println("-----Sexto Bug-----");
         sextoBug();
     }
 
     private static double registrarItem(String item, int quantidade, DataProjeto horarioDeFuncionamento) {
+
         double precoItem = 0;
         
         if(ItensPorQuantidade.verificaEstoque(item, quantidade)){
             precoItem = RelacaoPesoPreco.retornaPrecoProduto(item, quantidade);
+            ItensPorQuantidade.consumirEstoque(item, quantidade);
         }else{
-            System.out.println("Sinto muito, nao temos estoque de " + item + " no momento. Ja estamos trabalhando para resolver. Por favor, volte mais tarde");
-            ReposicaoCozinha.reporItem(item, horarioDeFuncionamento);
-            ReposicaoFornecedor.reporItem(item, horarioDeFuncionamento);
+            System.out.println("Sinto muito, temos apenas "+ ItensPorQuantidade.verificarQuantidade(item) + " " + item + " no momento. Ja estamos trabalhando para resolver. Por favor, volte mais tarde");
         }
+        ReposicaoCozinha.reporItem(item, horarioDeFuncionamento);
+        ReposicaoFornecedor.reporItem(item, horarioDeFuncionamento);
 
         return precoItem;
     }
-
 
     private static void primeiroBug() {
         DataProjeto dataPedido = new DataProjeto();
@@ -53,7 +61,6 @@ public class Registradora {
     }
 
     private static void terceiroBug() {
-        // DataProjeto.criarDataComCozinhaFuncionando();
         DataProjeto horario = new DataProjeto();
         horario.criarDataComCozinhaFuncionando();
         String item = "cafe";
@@ -76,7 +83,6 @@ public class Registradora {
         System.out.println(String.format("Valor total: %.2f", precoTotal));
 
         // Cliente 2
-        // Deve retornar sem estoque
         DataProjeto horario2 = new DataProjeto();
         horario2.criarDataComCozinhaFuncionando();
         String item2 = "sanduiche";
@@ -119,5 +125,4 @@ public class Registradora {
 
         System.out.println(String.format("Valor total: %.2f", precoTotal2));
     }
-
 }
