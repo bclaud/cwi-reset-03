@@ -1,18 +1,30 @@
 package com.bclaud.filme.model;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 import com.bclaud.filme.enuns.Genero;
 
 public abstract class Funcionario {
     private String nome;
-    private Integer idade;
+    private LocalDate dataNascimento;
     private Genero generoEnum;
-
-    protected Funcionario(String nome, Integer idade, Genero generoEnum) {
+    
+    protected Funcionario(String nome, String dataNascimento, Genero generoEnum) {
         this.nome = nome;
-        this.idade = idade;
+        this.dataNascimento = LocalDate.parse(dataNascimento);
         this.generoEnum = generoEnum;
     }
     
+    public Integer calcularIdade(){
+        
+        return Period.between(dataNascimento, LocalDate.now()).getYears();
+    }
+    
+    public void imprimirInformacoes(){
+        System.out.println(this);
+    }
+
     public String getNome() {
         return nome;
     }
@@ -23,13 +35,13 @@ public abstract class Funcionario {
     }
 
 
-    public Integer getIdade() {
-        return idade;
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
     }
 
 
-    public void setIdade(Integer idade) {
-        this.idade = idade;
+    public void setIdade(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
 
@@ -43,12 +55,9 @@ public abstract class Funcionario {
     }
 
 
-    public void imprimirInformacoes(){
-        System.out.println(this);
-    }
 
     @Override
     public String toString() {
-        return "Diretor [generoEnum=" + generoEnum.getDescricao() + ", idade=" + idade + ", nome=" + nome + "]";
+        return "Diretor [generoEnum=" + generoEnum.getDescricao() + ", idade=" + calcularIdade() + ", nome=" + nome + "]";
     }
 }

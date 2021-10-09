@@ -1,5 +1,7 @@
 package com.bclaud.filme.model;
 
+import com.bclaud.filme.exceptions.AvaliacaoForaDoPadraoException;
+
 public class Filme {
     private String nome;
     private String descricao;
@@ -13,8 +15,18 @@ public class Filme {
         this.descricao = descricao;
         this.duracaoEmMinutos = duracaoEmMinutos;
         this.anoDeLancamento = anoDeLancamento;
-        this.avaliacao = avaliacao;
+        this.avaliacao = validarAvaliacaoFilme(avaliacao);
         this.diretor = diretor;
+    }
+
+    public Double validarAvaliacaoFilme(Double avaliacao){
+        double notaMinima = 1.00;
+        double notaMaxima = 5.00;
+        if(avaliacao >= notaMinima && avaliacao <= notaMaxima){
+            return avaliacao;
+        }
+
+        throw new AvaliacaoForaDoPadraoException();
     }
 
     public void reproduzir(){

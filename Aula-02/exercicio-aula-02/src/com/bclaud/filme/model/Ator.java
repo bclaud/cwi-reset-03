@@ -6,8 +6,8 @@ public class Ator extends Funcionario{
     
     private Integer qtdOscars;
 
-    public Ator(String nome, Integer idade, Integer qtdOscars, Genero generoEnum ) {
-        super(nome, idade, generoEnum);
+    public Ator(String nome, String dataNascimento, Integer qtdOscars, Genero generoEnum ) {
+        super(nome, dataNascimento, generoEnum);
         this.qtdOscars  = qtdOscars;
     }
 
@@ -19,4 +19,5 @@ public class Ator extends Funcionario{
         this.qtdOscars = qtdOscars;
     }
 
+    
 }

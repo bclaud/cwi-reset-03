@@ -5,8 +5,8 @@ import com.bclaud.filme.enuns.Genero;
 public class Diretor extends Funcionario {
     private Integer qtdFilmesDirigidos;
 
-    public Diretor(String nome, Integer idade, Integer qtdFilmesDirigidos, Genero generoEnum) {
-        super(nome, idade, generoEnum);
+    public Diretor(String nome, String dataNascimento, Integer qtdFilmesDirigidos, Genero generoEnum) {
+        super(nome, dataNascimento, generoEnum);
         this.qtdFilmesDirigidos = qtdFilmesDirigidos;
     }
 
