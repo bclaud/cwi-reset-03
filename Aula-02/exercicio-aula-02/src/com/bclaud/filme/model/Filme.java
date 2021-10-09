@@ -5,7 +5,7 @@ public class Filme {
     private String descricao;
     private Integer duracaoEmMinutos;
     private Integer anoDeLancamento;
-    private Integer avaliacao;
+    private Double avaliacao;
     private Diretor diretor;
 
     public Filme(String nome, String descricao, Integer duracaoEmMinutos,Integer anoDeLancamento, Diretor diretor) {
