@@ -34,9 +34,13 @@ public class Diretor {
         this.qtdFilmesDirigidos = qtdFilmesDirigidos;
     }
 
+    public void imprimirInformacoes(){
+        System.out.println(this);
+    }
+
     @Override
     public String toString() {
-        return "Diretor [generoEnum=" + generoEnum.toString() + ", idade=" + idade + ", nome=" + nome + "]";
+        return "Diretor [generoEnum=" + generoEnum.getDescricao() + ", idade=" + idade + ", nome=" + nome + "]";
     }
     
 }

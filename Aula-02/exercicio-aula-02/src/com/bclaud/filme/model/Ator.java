@@ -16,9 +16,13 @@ public class Ator {
         this.generoEnum = generoEnum;
     }
 
+    public void imprimirInformacoes(){
+        System.out.println(this);
+    }
+
     @Override
     public String toString() {
-        return "Ator [generoEnum=" + generoEnum.toString() + ", idade=" + idade + ", nome=" + nome + "]";
+        return "Ator [generoEnum=" + generoEnum.getDescricao() + ", idade=" + idade + ", nome=" + nome + "]";
     }
     
 }

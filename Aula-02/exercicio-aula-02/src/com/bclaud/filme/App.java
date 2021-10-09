@@ -15,5 +15,8 @@ public class App {
         casteloAnimado.reproduzir();
         System.out.println("----------");
         readyPlayerOne.reproduzir();
+        System.out.println("----------");
+
+        miyazaki.imprimirInformacoes();
     }
 }
