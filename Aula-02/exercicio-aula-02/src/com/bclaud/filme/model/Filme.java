@@ -8,11 +8,12 @@ public class Filme {
     private Double avaliacao;
     private Diretor diretor;
 
-    public Filme(String nome, String descricao, Integer duracaoEmMinutos,Integer anoDeLancamento, Diretor diretor) {
+    public Filme(String nome, String descricao, Integer duracaoEmMinutos,Integer anoDeLancamento,Double avaliacao, Diretor diretor) {
         this.nome = nome;
         this.descricao = descricao;
         this.duracaoEmMinutos = duracaoEmMinutos;
         this.anoDeLancamento = anoDeLancamento;
+        this.avaliacao = avaliacao;
         this.diretor = diretor;
     }
 

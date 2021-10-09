@@ -1,14 +1,18 @@
 package com.bclaud.filme.model;
 
+import com.bclaud.filme.model.enuns.Genero;
+
 public class Diretor {
     private String nome;
     private Integer idade;
     private Integer qtdFilmesDirigidos;
+    private Genero generoEnum;
 
-    public Diretor(String nome, Integer idade, Integer qtdFilmesDirigidos) {
+    public Diretor(String nome, Integer idade, Integer qtdFilmesDirigidos, Genero generoEnum) {
         this.nome = nome;
         this.idade = idade;
         this.qtdFilmesDirigidos = qtdFilmesDirigidos;
+        this.generoEnum = generoEnum;
     }
 
     public String getNome() {
@@ -30,5 +34,9 @@ public class Diretor {
         this.qtdFilmesDirigidos = qtdFilmesDirigidos;
     }
 
+    @Override
+    public String toString() {
+        return "Diretor [generoEnum=" + generoEnum.toString() + ", idade=" + idade + ", nome=" + nome + "]";
+    }
     
 }
