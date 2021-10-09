@@ -1,28 +1,22 @@
 package com.bclaud.filme.model;
 
-import com.bclaud.filme.model.enuns.Genero;
+import com.bclaud.filme.enuns.Genero;
 
-public class Ator {
+public class Ator extends Funcionario{
     
-    private String nome;
-    private Integer idade;
     private Integer qtdOscars;
-    private Genero generoEnum;
 
     public Ator(String nome, Integer idade, Integer qtdOscars, Genero generoEnum ) {
-        this.nome = nome;
-        this.idade = idade;
+        super(nome, idade, generoEnum);
+        this.qtdOscars  = qtdOscars;
+    }
+
+    public Integer getQtdOscars() {
+        return qtdOscars;
+    }
+
+    public void setQtdOscars(Integer qtdOscars) {
         this.qtdOscars = qtdOscars;
-        this.generoEnum = generoEnum;
     }
 
-    public void imprimirInformacoes(){
-        System.out.println(this);
-    }
-
-    @Override
-    public String toString() {
-        return "Ator [generoEnum=" + generoEnum.getDescricao() + ", idade=" + idade + ", nome=" + nome + "]";
-    }
-    
 }

@@ -1,4 +1,4 @@
-package com.bclaud.filme.model.enuns;
+package com.bclaud.filme.enuns;
 
 public enum Genero {
     MASCULINO("Masculino"),
@@ -14,4 +14,6 @@ public enum Genero {
     public String getDescricao(){
         return descricao;
     }
+
+    
 }

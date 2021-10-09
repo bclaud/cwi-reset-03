@@ -1,8 +1,8 @@
 package com.bclaud.filme;
 
+import com.bclaud.filme.enuns.Genero;
 import com.bclaud.filme.model.Diretor;
 import com.bclaud.filme.model.Filme;
-import com.bclaud.filme.model.enuns.Genero;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -17,6 +17,5 @@ public class App {
         readyPlayerOne.reproduzir();
         System.out.println("----------");
 
-        miyazaki.imprimirInformacoes();
     }
 }
