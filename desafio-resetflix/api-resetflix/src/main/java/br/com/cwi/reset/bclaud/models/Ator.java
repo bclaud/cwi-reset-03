@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import br.com.cwi.reset.bclaud.enums.StatusCarreira;
 
-public class Ator {
+public class Ator implements FuncionarioInterface{
     
     private Long id;
     private String nome;
@@ -13,7 +13,7 @@ public class Ator {
     private Integer anoInicioAtividade;
     
     public Ator(String nome, LocalDate dataNascimento, StatusCarreira statusCarreira,
-            Integer anoInicioAtividade) {
+        Integer anoInicioAtividade) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.statusCarreira = statusCarreira;

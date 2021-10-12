@@ -2,7 +2,7 @@ package br.com.cwi.reset.bclaud.models;
 
 import java.time.LocalDate;
 
-public class Diretor {
+public class Diretor implements FuncionarioInterface {
     
     private Long id;
     private String nome;

@@ -21,19 +21,19 @@ public class App
         Repository atorRepository = new Repository();
         AtorService atorService = new AtorService(atorRepository);
 
-        Ator will = new Ator("Will Smith", LocalDate.of(1950, Month.SEPTEMBER, 25), StatusCarreira.EM_ATIVIDADE, 2000); 
-        // Ator will2 = new Ator("Will Smith", LocalDate.of(1968, Month.SEPTEMBER, 25), StatusCarreira.EM_ATIVIDADE, 1986); 
+        Ator will = new Ator("Will Smith", LocalDate.of(1968, Month.SEPTEMBER, 25), StatusCarreira.EM_ATIVIDADE, 1986); 
+        Ator will2 = new Ator("Will Smith", LocalDate.of(1968, Month.SEPTEMBER, 25), StatusCarreira.EM_ATIVIDADE, 1986); 
 
         try{
             atorService.criarAtor(will);
+            atorService.criarAtor(will2);
         } catch(AtorExceptions e){            
             System.out.println(e.getMessage());
         }
-        // atorService.criarAtor(will2);
 
 
         List<Ator> listaConsultada = atorService.listarAtoresEmAtividade();
-        atorService.consultarAtor(1L);
+        // atorService.consultarAtor(1L);
 
         listaConsultada.stream().forEach(ator -> System.out.println("id: " + ator.getId() + " Nome: " + ator.getNome()));
     }

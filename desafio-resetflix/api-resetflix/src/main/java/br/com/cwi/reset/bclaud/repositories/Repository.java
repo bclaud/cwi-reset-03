@@ -7,7 +7,7 @@ import java.util.Optional;
 import br.com.cwi.reset.bclaud.models.Ator;
 import br.com.cwi.reset.bclaud.models.Diretor;
 
-public class Repository {
+public class Repository implements RepositoryInterface {
 
     List<Ator> listaDeAtores = new ArrayList<>();
     List<Diretor> listaDeDiretores = new ArrayList<>();
