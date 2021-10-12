@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import br.com.cwi.reset.bclaud.exceptions.DiretorExceptions;
 import br.com.cwi.reset.bclaud.models.Diretor;
 import br.com.cwi.reset.bclaud.repositories.Repository;
+import br.com.cwi.reset.bclaud.service.requestmodels.DiretorRequest;
 
 public class DiretorService {
     Repository diretorRepository;
@@ -15,7 +16,8 @@ public class DiretorService {
         this.diretorRepository = diretorRepository;
     }
 
-    public void cadastrarDiretor(Diretor diretor) throws DiretorExceptions{
+    public void cadastrarDiretor(DiretorRequest request) throws DiretorExceptions{
+        Diretor diretor = diretorRequestToDiretor(request);
         //TODO falta exception do campo
         if(isDuplicated(diretor)){
             throw new DiretorExceptions("Já existe um diretor cadastrado para o nome " + diretor.getNome() +".");
@@ -78,6 +80,10 @@ public class DiretorService {
 
     public boolean isValidName(Diretor diretor){
         return diretor.getNome().contains(" ");
+    }
+
+    public Diretor diretorRequestToDiretor(DiretorRequest request){
+        return new Diretor(request.getNome(), request.getDataNascimento(), request.getAnoInicioAtividade());
     }
 
     public Long idGenerator(){

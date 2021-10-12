@@ -9,6 +9,7 @@ import br.com.cwi.reset.bclaud.exceptions.AtorExceptions;
 import br.com.cwi.reset.bclaud.models.Ator;
 import br.com.cwi.reset.bclaud.repositories.Repository;
 import br.com.cwi.reset.bclaud.service.AtorService;
+import br.com.cwi.reset.bclaud.service.requestmodels.AtorRequest;
 
 /**
  * Hello world!
@@ -21,7 +22,7 @@ public class App
         Repository atorRepository = new Repository();
         AtorService atorService = new AtorService(atorRepository);
 
-        Ator will = new Ator("Will Smith", LocalDate.of(1950, Month.SEPTEMBER, 25), StatusCarreira.EM_ATIVIDADE, 2000); 
+        AtorRequest will = new AtorRequest("Will Smith", LocalDate.of(1950, Month.SEPTEMBER, 25), StatusCarreira.EM_ATIVIDADE, 2000); 
         // Ator will2 = new Ator("Will Smith", LocalDate.of(1968, Month.SEPTEMBER, 25), StatusCarreira.EM_ATIVIDADE, 1986); 
 
         try{

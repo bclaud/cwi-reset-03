@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import br.com.cwi.reset.bclaud.exceptions.AtorExceptions;
 import br.com.cwi.reset.bclaud.models.Ator;
 import br.com.cwi.reset.bclaud.repositories.Repository;
+import br.com.cwi.reset.bclaud.service.requestmodels.AtorRequest;
 
 public class AtorService {
     
@@ -16,7 +17,8 @@ public class AtorService {
         this.atorRepository = atorRepository;
     }
 
-    public void criarAtor(Ator ator) throws AtorExceptions {
+    public void criarAtor(AtorRequest request) throws AtorExceptions {
+        Ator ator = atorRequestToAtor(request);
         if(isDuplicated(ator)){
             throw new AtorExceptions("Já existe um ator cadastrado para o nome " + ator.getNome());
         }        
@@ -85,6 +87,10 @@ public class AtorService {
 
     public boolean isValidName(Ator ator){
         return ator.getNome().contains(" ");
+    }
+
+    public Ator atorRequestToAtor(AtorRequest request){
+        return new Ator(request.getNome(), request.getDataNascimento(), request.getStatusCarreira(), request.getAnoInicioAtividade());
     }
 
     public Long idGenerator(){
