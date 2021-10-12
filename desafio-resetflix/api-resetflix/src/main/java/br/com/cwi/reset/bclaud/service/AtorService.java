@@ -1,8 +1,10 @@
 package br.com.cwi.reset.bclaud.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.com.cwi.reset.bclaud.exceptions.AtorExceptions;
 import br.com.cwi.reset.bclaud.models.Ator;
 import br.com.cwi.reset.bclaud.repositories.Repository;
 
@@ -14,10 +16,22 @@ public class AtorService {
         this.atorRepository = atorRepository;
     }
 
-    public void criarAtor(Ator ator){
+    public void criarAtor(Ator ator) throws AtorExceptions {
+        if(isDuplicated(ator)){
+            throw new AtorExceptions("Já existe um ator cadastrado para o nome " + ator.getNome());
+        }
+        
+        if(!isValidBirthdate(ator)){
+            throw new AtorExceptions("Não é possível cadastrar atores não nascidos.");
+        }
+
+        if(!isValidActivityStartdate(ator)){
+            throw new AtorExceptions("Ano de início de atividade inválido para o ator cadastrado.");
+        }
+
         ator.setId(idGenerator());
         atorRepository.salvarAtor(ator);
-        //TODO adicionar as exceptions
+        //TODO falta a exception de obrigatorio nome e sobre nome e de campos faltando
     }
 
     public List<Ator> listarAtoresEmAtividade(){
@@ -42,6 +56,19 @@ public class AtorService {
     public List<Ator> consultarAtores(){
         //TODO adicionar as expcetions
         return atorRepository.listarAtores();
+    }
+
+    public boolean isDuplicated(Ator ator){
+        return atorRepository.listarAtores().stream()
+        .anyMatch(a -> a.getNome().equalsIgnoreCase(ator.getNome()));
+    }
+
+    public boolean isValidBirthdate(Ator ator){
+        return ator.getDataNascimento().isBefore(LocalDate.now());
+    }
+
+    public boolean isValidActivityStartdate(Ator ator){
+        return ator.getAnoInicioAtividade() > ator.getDataNascimento().getYear();
     }
 
     public Long idGenerator(){

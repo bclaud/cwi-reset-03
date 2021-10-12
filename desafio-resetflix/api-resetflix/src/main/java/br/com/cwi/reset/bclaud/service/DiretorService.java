@@ -1,6 +1,5 @@
 package br.com.cwi.reset.bclaud.service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
