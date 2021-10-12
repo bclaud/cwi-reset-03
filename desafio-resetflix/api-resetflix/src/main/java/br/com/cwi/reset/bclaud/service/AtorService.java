@@ -19,43 +19,55 @@ public class AtorService {
     public void criarAtor(Ator ator) throws AtorExceptions {
         if(isDuplicated(ator)){
             throw new AtorExceptions("Já existe um ator cadastrado para o nome " + ator.getNome());
-        }
-        
+        }        
         if(!isValidBirthdate(ator)){
             throw new AtorExceptions("Não é possível cadastrar atores não nascidos.");
         }
-
         if(!isValidActivityStartdate(ator)){
             throw new AtorExceptions("Ano de início de atividade inválido para o ator cadastrado.");
+        }
+        if(!isValidName(ator)){
+            throw new AtorExceptions("Deve ser informado no mínimo nome e sobrenome para o ator.");
         }
 
         ator.setId(idGenerator());
         atorRepository.salvarAtor(ator);
-        //TODO falta a exception de obrigatorio nome e sobre nome e de campos faltando
+        //TODO falta a exception de campos faltando
     }
 
     public List<Ator> listarAtoresEmAtividade(){
-        //TODO adicionar as exceptions
+        if(atorRepository.listarAtores().isEmpty()){
+            throw new AtorExceptions("Nenhum ator cadastrado, favor cadastar atores.");
+        }
         return atorRepository.listarAtores().stream()
         .filter(ator -> ator.getStatusCarreira().toString().equals("EM_ATIVIDADE"))
         .collect(Collectors.toList());
     }
 
     public List<Ator> listarAtoresEmAtividade(String filtroNome){
-        //TODO adicionar as exceptions
-        return listarAtoresEmAtividade().stream()
+        List<Ator> listaFiltrada =  listarAtoresEmAtividade().stream()
         .filter(ator -> ator.getNome().toUpperCase().contains(filtroNome.toUpperCase()))
         .collect(Collectors.toList());
+
+        if(listaFiltrada.isEmpty()){
+            throw new AtorExceptions("Ator não encontrato com o filtro "+ filtroNome +", favor informar outro filtro.");
+        }
+
+        return listaFiltrada;
     }
 
     public Ator consultarAtor(Long id){
-        //TODO adicionar as exceptions
-        return atorRepository.consultarAtor(id).get();
+        //TODO falta exception de campo obrigatorio
+        return atorRepository.consultarAtor(id)
+        .orElseThrow(() -> new AtorExceptions("Nenhum ator encontrado com o parâmetro id="+id+", favor verifique os parâmetros informados."));
     }
 
     public List<Ator> consultarAtores(){
-        //TODO adicionar as expcetions
-        return atorRepository.listarAtores();
+        List<Ator> listaAtores = atorRepository.listarAtores();
+        if(listaAtores.isEmpty()){
+            throw new AtorExceptions("Nenhum ator cadastrado, favor cadastar atores.");
+        }
+        return listaAtores;
     }
 
     public boolean isDuplicated(Ator ator){
@@ -69,6 +81,10 @@ public class AtorService {
 
     public boolean isValidActivityStartdate(Ator ator){
         return ator.getAnoInicioAtividade() > ator.getDataNascimento().getYear();
+    }
+
+    public boolean isValidName(Ator ator){
+        return ator.getNome().contains(" ");
     }
 
     public Long idGenerator(){

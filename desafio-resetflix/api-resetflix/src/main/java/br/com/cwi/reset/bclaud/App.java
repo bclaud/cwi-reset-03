@@ -33,7 +33,7 @@ public class App
 
 
         List<Ator> listaConsultada = atorService.listarAtoresEmAtividade();
-        
+        atorService.consultarAtor(1L);
 
         listaConsultada.stream().forEach(ator -> System.out.println("id: " + ator.getId() + " Nome: " + ator.getNome()));
     }
