@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.cwi.reset.bclaud.exceptions.AtorExceptions;
+import br.com.cwi.reset.bclaud.exceptions.CampoVazioException;
 import br.com.cwi.reset.bclaud.models.Ator;
 import br.com.cwi.reset.bclaud.repositories.Repository;
 import br.com.cwi.reset.bclaud.service.requestmodels.AtorRequest;
@@ -17,7 +18,12 @@ public class AtorService {
         this.atorRepository = atorRepository;
     }
 
-    public void criarAtor(AtorRequest request) throws AtorExceptions {
+    public void criarAtor(AtorRequest request) throws AtorExceptions, CampoVazioException{
+        String checkCampo = checkNullFields(request);
+        if(checkCampo != null){
+            throw new CampoVazioException(checkCampo);
+        }
+
         Ator ator = atorRequestToAtor(request);
         if(isDuplicated(ator)){
             throw new AtorExceptions("Já existe um ator cadastrado para o nome " + ator.getNome());
@@ -34,7 +40,6 @@ public class AtorService {
 
         ator.setId(idGenerator());
         atorRepository.salvarAtor(ator);
-        //TODO falta a exception de campos faltando
     }
 
     public List<Ator> listarAtoresEmAtividade(){
@@ -58,8 +63,11 @@ public class AtorService {
         return listaFiltrada;
     }
 
-    public Ator consultarAtor(Long id){
-        //TODO falta exception de campo obrigatorio
+    public Ator consultarAtor(Long id) throws AtorExceptions, CampoVazioException{
+        if(id == null){
+            throw new CampoVazioException("id");
+        }
+
         return atorRepository.consultarAtor(id)
         .orElseThrow(() -> new AtorExceptions("Nenhum ator encontrado com o parâmetro id="+id+", favor verifique os parâmetros informados."));
     }
@@ -91,6 +99,26 @@ public class AtorService {
 
     public Ator atorRequestToAtor(AtorRequest request){
         return new Ator(request.getNome(), request.getDataNascimento(), request.getStatusCarreira(), request.getAnoInicioAtividade());
+    }
+
+    public String checkNullFields(AtorRequest request){
+        if(request.getNome() == null){
+            return "nome";
+        }
+
+        if(request.getDataNascimento() == null){
+            return "data de nascimento";
+        }
+
+        if(request.getAnoInicioAtividade() == null){
+            return "ano inicio nascimento";
+        }
+
+        if(request.getStatusCarreira() == null){
+            return "status carreira";
+        }
+        
+        return null;
     }
 
     public Long idGenerator(){

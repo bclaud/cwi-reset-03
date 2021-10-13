@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.com.cwi.reset.bclaud.exceptions.CampoVazioException;
 import br.com.cwi.reset.bclaud.exceptions.DiretorExceptions;
 import br.com.cwi.reset.bclaud.models.Diretor;
 import br.com.cwi.reset.bclaud.repositories.Repository;
@@ -16,9 +17,14 @@ public class DiretorService {
         this.diretorRepository = diretorRepository;
     }
 
-    public void cadastrarDiretor(DiretorRequest request) throws DiretorExceptions{
+    public void cadastrarDiretor(DiretorRequest request) throws DiretorExceptions, CampoVazioException{
+        String checkCampos = checkNullFields(request);
+        
+        if(checkCampos != null){
+            throw new CampoVazioException(checkCampos);
+        }
+
         Diretor diretor = diretorRequestToDiretor(request);
-        //TODO falta exception do campo
         if(isDuplicated(diretor)){
             throw new DiretorExceptions("Já existe um diretor cadastrado para o nome " + diretor.getNome() +".");
         }
@@ -59,8 +65,11 @@ public class DiretorService {
         return listaDiretor;
     }
 
-    public Diretor consultarDiretor(Long id) throws DiretorExceptions{
-        //TODO falta exception campo obrigatorio
+    public Diretor consultarDiretor(Long id) throws DiretorExceptions, CampoVazioException{
+        if(id == null){
+            throw new CampoVazioException("id");
+        }
+
         return diretorRepository.consultarDiretor(id)
         .orElseThrow(() -> new DiretorExceptions("Nenhum diretor encontrado com o parâmetro id="+id+", favor verifique os parâmetros informados."));
     }
@@ -84,6 +93,22 @@ public class DiretorService {
 
     public Diretor diretorRequestToDiretor(DiretorRequest request){
         return new Diretor(request.getNome(), request.getDataNascimento(), request.getAnoInicioAtividade());
+    }
+
+    public String checkNullFields(DiretorRequest request){
+        if(request.getNome() == null){
+            return "nome";
+        }
+
+        if(request.getDataNascimento() == null){
+            return "data de nascimento";
+        }
+
+        if(request.getAnoInicioAtividade() == null){
+            return "ano inicio nascimento";
+        }
+        
+        return null;
     }
 
     public Long idGenerator(){
