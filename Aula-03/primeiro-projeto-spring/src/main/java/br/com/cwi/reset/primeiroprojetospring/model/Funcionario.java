@@ -15,6 +15,10 @@ public abstract class Funcionario {
         this.dataNascimento = LocalDate.parse(dataNascimento);
         this.generoEnum = generoEnum;
     }
+
+    public Funcionario(){
+        
+    }
     
     public Integer calcularIdade(){
         
@@ -29,32 +33,25 @@ public abstract class Funcionario {
         return nome;
     }
 
-
     public void setNome(String nome) {
         this.nome = nome;
     }
-
 
     public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-
     public void setIdade(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
-
 
     public Genero getGeneroEnum() {
         return generoEnum;
     }
 
-
     public void setGeneroEnum(Genero generoEnum) {
         this.generoEnum = generoEnum;
     }
-
-
 
     @Override
     public String toString() {

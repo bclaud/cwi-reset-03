@@ -11,6 +11,10 @@ public class Ator extends Funcionario{
         this.qtdOscars  = qtdOscars;
     }
 
+    public Ator(){
+        super();
+    }
+
     public Integer getQtdOscars() {
         return qtdOscars;
     }
