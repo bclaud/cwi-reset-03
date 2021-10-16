@@ -10,6 +10,9 @@ public class Filme {
     private Double avaliacao;
     private Diretor diretor;
 
+    public Filme() {
+    }
+
     public Filme(String nome, String descricao, Integer duracaoEmMinutos,Integer anoDeLancamento,Double avaliacao, Diretor diretor) {
         this.nome = nome;
         this.descricao = descricao;

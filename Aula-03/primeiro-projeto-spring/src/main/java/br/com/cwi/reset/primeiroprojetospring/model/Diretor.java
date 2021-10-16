@@ -10,6 +10,10 @@ public class Diretor extends Funcionario {
         this.qtdFilmesDirigidos = qtdFilmesDirigidos;
     }
 
+    public Diretor(){
+        super();
+    }
+
     public Integer getQtdFilmesDirigidos() {
         return qtdFilmesDirigidos;
     }
