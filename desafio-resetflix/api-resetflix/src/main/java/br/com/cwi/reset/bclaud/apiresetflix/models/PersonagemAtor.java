@@ -1,6 +1,6 @@
-package br.com.cwi.reset.bclaud.models;
+package br.com.cwi.reset.bclaud.apiresetflix.models;
 
-import br.com.cwi.reset.bclaud.enums.TipoAtuacao;
+import br.com.cwi.reset.bclaud.apiresetflix.enums.TipoAtuacao;
 
 public class PersonagemAtor {
     

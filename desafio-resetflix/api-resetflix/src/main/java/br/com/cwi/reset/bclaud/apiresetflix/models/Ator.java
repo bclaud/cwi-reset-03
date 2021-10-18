@@ -1,17 +1,22 @@
-package br.com.cwi.reset.bclaud.models;
+package br.com.cwi.reset.bclaud.apiresetflix.models;
 
 import java.time.LocalDate;
 
-public class Diretor {
+import br.com.cwi.reset.bclaud.apiresetflix.enums.StatusCarreira;
+
+public class Ator {
     
     private Long id;
     private String nome;
     private LocalDate dataNascimento;
+    private StatusCarreira statusCarreira;
     private Integer anoInicioAtividade;
     
-    public Diretor(String nome, LocalDate dataNascimento, Integer anoInicioAtividade) {
+    public Ator(String nome, LocalDate dataNascimento, StatusCarreira statusCarreira,
+            Integer anoInicioAtividade) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
+        this.statusCarreira = statusCarreira;
         this.anoInicioAtividade = anoInicioAtividade;
     }
 
@@ -37,6 +42,14 @@ public class Diretor {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public StatusCarreira getStatusCarreira() {
+        return statusCarreira;
+    }
+
+    public void setStatusCarreira(StatusCarreira statusCarreira) {
+        this.statusCarreira = statusCarreira;
     }
 
     public Integer getAnoInicioAtividade() {

@@ -1,31 +1,22 @@
-package br.com.cwi.reset.bclaud.models;
+package br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels;
 
 import java.time.LocalDate;
 
-import br.com.cwi.reset.bclaud.enums.StatusCarreira;
+import br.com.cwi.reset.bclaud.apiresetflix.enums.StatusCarreira;
 
-public class Ator {
-    
-    private Long id;
+public class AtorRequest {
+
     private String nome;
     private LocalDate dataNascimento;
     private StatusCarreira statusCarreira;
     private Integer anoInicioAtividade;
-    
-    public Ator(String nome, LocalDate dataNascimento, StatusCarreira statusCarreira,
+
+    public AtorRequest(String nome, LocalDate dataNascimento, StatusCarreira statusCarreira,
             Integer anoInicioAtividade) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.statusCarreira = statusCarreira;
         this.anoInicioAtividade = anoInicioAtividade;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -59,5 +50,4 @@ public class Ator {
     public void setAnoInicioAtividade(Integer anoInicioAtividade) {
         this.anoInicioAtividade = anoInicioAtividade;
     }
-    
 }

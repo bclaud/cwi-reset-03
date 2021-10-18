@@ -1,4 +1,4 @@
-package br.com.cwi.reset.bclaud.exceptions;
+package br.com.cwi.reset.bclaud.apiresetflix.exceptions;
 
 public class AtorExceptions extends RuntimeException{
     

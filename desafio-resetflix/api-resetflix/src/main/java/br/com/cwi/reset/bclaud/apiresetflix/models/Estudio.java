@@ -1,6 +1,6 @@
-package br.com.cwi.reset.bclaud.models;
+package br.com.cwi.reset.bclaud.apiresetflix.models;
 
-import br.com.cwi.reset.bclaud.enums.StatusAtividade;
+import br.com.cwi.reset.bclaud.apiresetflix.enums.StatusAtividade;
 
 public class Estudio {
     private Long id;

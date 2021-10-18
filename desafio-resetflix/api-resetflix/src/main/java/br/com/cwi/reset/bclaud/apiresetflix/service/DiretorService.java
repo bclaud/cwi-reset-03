@@ -1,14 +1,14 @@
-package br.com.cwi.reset.bclaud.service;
+package br.com.cwi.reset.bclaud.apiresetflix.service;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.com.cwi.reset.bclaud.exceptions.CampoVazioException;
-import br.com.cwi.reset.bclaud.exceptions.DiretorExceptions;
-import br.com.cwi.reset.bclaud.models.Diretor;
-import br.com.cwi.reset.bclaud.repositories.Repository;
-import br.com.cwi.reset.bclaud.service.requestmodels.DiretorRequest;
+import br.com.cwi.reset.bclaud.apiresetflix.exceptions.CampoVazioException;
+import br.com.cwi.reset.bclaud.apiresetflix.exceptions.DiretorExceptions;
+import br.com.cwi.reset.bclaud.apiresetflix.models.Diretor;
+import br.com.cwi.reset.bclaud.apiresetflix.repositories.Repository;
+import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.DiretorRequest;
 
 public class DiretorService {
     Repository diretorRepository;

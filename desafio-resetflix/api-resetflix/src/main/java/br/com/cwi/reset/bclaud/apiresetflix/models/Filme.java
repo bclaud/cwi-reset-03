@@ -1,8 +1,8 @@
-package br.com.cwi.reset.bclaud.models;
+package br.com.cwi.reset.bclaud.apiresetflix.models;
 
 import java.util.List;
 
-import br.com.cwi.reset.bclaud.enums.Genero;
+import br.com.cwi.reset.bclaud.apiresetflix.enums.Genero;
 
 public class Filme {
     

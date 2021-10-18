@@ -1,11 +1,11 @@
-package br.com.cwi.reset.bclaud.repositories;
+package br.com.cwi.reset.bclaud.apiresetflix.repositories;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import br.com.cwi.reset.bclaud.models.Ator;
-import br.com.cwi.reset.bclaud.models.Diretor;
+import br.com.cwi.reset.bclaud.apiresetflix.models.Ator;
+import br.com.cwi.reset.bclaud.apiresetflix.models.Diretor;
 
 public class Repository {
 

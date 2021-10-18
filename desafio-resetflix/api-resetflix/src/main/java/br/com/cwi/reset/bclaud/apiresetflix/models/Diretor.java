@@ -1,17 +1,26 @@
-package br.com.cwi.reset.bclaud.service.requestmodels;
+package br.com.cwi.reset.bclaud.apiresetflix.models;
 
 import java.time.LocalDate;
 
-public class DiretorRequest {
-
+public class Diretor {
+    
+    private Long id;
     private String nome;
     private LocalDate dataNascimento;
     private Integer anoInicioAtividade;
     
-    public DiretorRequest(String nome, LocalDate dataNascimento, Integer anoInicioAtividade) {
+    public Diretor(String nome, LocalDate dataNascimento, Integer anoInicioAtividade) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.anoInicioAtividade = anoInicioAtividade;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -37,4 +46,5 @@ public class DiretorRequest {
     public void setAnoInicioAtividade(Integer anoInicioAtividade) {
         this.anoInicioAtividade = anoInicioAtividade;
     }
+    
 }
