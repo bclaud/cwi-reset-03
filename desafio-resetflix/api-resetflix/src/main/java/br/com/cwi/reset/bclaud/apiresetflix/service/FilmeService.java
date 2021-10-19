@@ -61,7 +61,7 @@ public class FilmeService {
         .collect(Collectors.toList());
         
         if(listaFiltrada.isEmpty()){
-            throw new FilmeExceptions("Ator não encontrato com os filtros nomeFilme="+nomeFilme+", nomeDiretor="+nomeDiretor+", nomePersonagem="+nomePersonagem+", nomeAtor="+nomeAtor+", favor informar outros filtros.");
+            throw new FilmeExceptions("Filme não encontrato com os filtros nomeFilme="+nomeFilme+", nomeDiretor="+nomeDiretor+", nomePersonagem="+nomePersonagem+", nomeAtor="+nomeAtor+", favor informar outros filtros.");
         }
 
         return listaFiltrada;
