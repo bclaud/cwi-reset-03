@@ -11,6 +11,13 @@ import br.com.cwi.reset.bclaud.apiresetflix.repositories.Repository;
 import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.EstudioRequest;
 
 public class EstudioService {
+
+    public static EstudioService estudioService = new EstudioService(Repository.getInstance());
+
+    public static EstudioService getInstance(){
+        return estudioService;
+    }
+
     Repository estudioRepository;
 
     public EstudioService(Repository diretorRepository){

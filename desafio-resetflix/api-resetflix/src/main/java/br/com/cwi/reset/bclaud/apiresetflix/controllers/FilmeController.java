@@ -20,15 +20,10 @@ import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.FilmeRequest;
 public class FilmeController {
 
     private FilmeService filmeService;
-    private AtorService atorService;
-    private DiretorService diretorService;
-    private EstudioService estudioService;
-    private PersonagemService personagemService;
 
-
-    public FilmeController( AtorService atorService, DiretorService diretorService, EstudioService estudioService,
-    PersonagemService personagemService){
-        this.filmeService = new FilmeService(Repository.getInstance(), atorService, diretorService, estudioService, personagemService);
+    public FilmeController() {
+        this.filmeService = new FilmeService(Repository.getInstance(), AtorService.getInstance(),
+                DiretorService.getInstance(), EstudioService.getInstance(), PersonagemService.getInstance());
     }
 
     @PostMapping

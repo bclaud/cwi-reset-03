@@ -10,8 +10,8 @@ public class FilmeRequest {
     private Integer anoLancamento;
     private String capaFilme;
     private List<Genero> generos;
-    private Long diretorId;
-    private Long estudioId;
+    private Long idDiretor;
+    private Long idEstudio;
     private String resumo;
     private List<PersonagemRequest> personagens;
 
@@ -51,20 +51,20 @@ public class FilmeRequest {
         this.generos = generos;
     }
 
-    public Long getDiretorId() {
-        return diretorId;
+    public Long getIdDiretor() {
+        return idDiretor;
     }
 
-    public void setDiretorId(Long diretorId) {
-        this.diretorId = diretorId;
+    public void setIdDiretor(Long diretorId) {
+        this.idDiretor = diretorId;
     }
 
-    public Long getEstudioId() {
-        return estudioId;
+    public Long getIdEstudio() {
+        return idEstudio;
     }
 
-    public void setEstudioId(Long estudioId) {
-        this.estudioId = estudioId;
+    public void setIdEstudio(Long estudioId) {
+        this.idEstudio = estudioId;
     }
 
     public String getResumo() {

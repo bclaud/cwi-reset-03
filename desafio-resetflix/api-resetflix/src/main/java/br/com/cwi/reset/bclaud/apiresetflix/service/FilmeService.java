@@ -19,7 +19,7 @@ public class FilmeService {
 
     public FilmeService(Repository filmeRepository, AtorService atorService, DiretorService diretorService, EstudioService estudioService,
             PersonagemService personagemService) {
-        filmeRepository = filmeRepository;
+        this.filmeRepository = filmeRepository;
         this.atorService = atorService;
         this.diretorService = diretorService;
         this.estudioService = estudioService;
@@ -43,8 +43,8 @@ public class FilmeService {
         filme.setAnoLancamento(request.getAnoLancamento());
         filme.setCapaFilme(request.getCapaFilme());
         filme.setGeneros(request.getGeneros());
-        filme.setDiretor(diretorService.consultarDiretor(request.getDiretorId()));
-        filme.setEstudio(estudioService.consultarEstudio(request.getEstudioId()));
+        filme.setDiretor(diretorService.consultarDiretor(request.getIdDiretor()));
+        filme.setEstudio(estudioService.consultarEstudio(request.getIdEstudio()));
         List<PersonagemAtor> listaPersonagem = request.getPersonagens().stream()
                 .map(p -> personagemService.criarPersonagem(p)).collect(Collectors.toList());
         filme.setPersonagens(listaPersonagem);
@@ -65,10 +65,10 @@ public class FilmeService {
         if (request.getGeneros() == null)
             return "lista de generos";
 
-        if (request.getDiretorId() == null)
+        if (request.getIdDiretor() == null)
             return "diretor id";
 
-        if (request.getEstudioId() == null)
+        if (request.getIdEstudio() == null)
             return "estudio id";
 
         if (request.getResumo() == null)
@@ -81,6 +81,6 @@ public class FilmeService {
     }
 
     public Long idGenerator() {
-        return (long) filmeRepository.recuperaAtores().size() + 1;
+        return (long) filmeRepository.recuperaFilmes().size() + 1;
     }
 }

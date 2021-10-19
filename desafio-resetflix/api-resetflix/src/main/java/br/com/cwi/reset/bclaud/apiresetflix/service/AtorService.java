@@ -12,6 +12,12 @@ import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.AtorRequest;
 import br.com.cwi.reset.bclaud.apiresetflix.service.responsemodels.AtorEmAtividade;
 
 public class AtorService {
+
+    public static AtorService atorService = new AtorService(Repository.getInstance());
+
+    public static AtorService getInstance(){
+        return atorService;
+    }
     
     private Repository atorRepository;
 

@@ -3,7 +3,7 @@ package br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels;
 import br.com.cwi.reset.bclaud.apiresetflix.enums.TipoAtuacao;
 
 public class PersonagemRequest {
-    private Long atorId;
+    private Long idAtor;
     private String nomePersonagem;
     private String descricaoPersonagem;
     private TipoAtuacao tipoAtuacao;
@@ -11,11 +11,11 @@ public class PersonagemRequest {
     public PersonagemRequest() {
     }
 
-    public Long getAtorId() {
-        return atorId;
+    public Long getIdAtor() {
+        return idAtor;
     }
-    public void setAtorId(Long atorId) {
-        this.atorId = atorId;
+    public void setIdAtor(Long atorId) {
+        this.idAtor = atorId;
     }
     public String getNomePersonagem() {
         return nomePersonagem;

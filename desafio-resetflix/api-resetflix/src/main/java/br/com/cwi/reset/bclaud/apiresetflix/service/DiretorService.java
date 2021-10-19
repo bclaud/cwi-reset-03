@@ -11,9 +11,13 @@ import br.com.cwi.reset.bclaud.apiresetflix.repositories.Repository;
 import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.DiretorRequest;
 
 public class DiretorService {
-    
-
     Repository diretorRepository;
+
+    public static DiretorService diretorService = new DiretorService(Repository.getInstance());
+
+    public static DiretorService getInstance(){
+        return diretorService;
+    }    
 
     public DiretorService(Repository diretorRepository){
         this.diretorRepository = diretorRepository;

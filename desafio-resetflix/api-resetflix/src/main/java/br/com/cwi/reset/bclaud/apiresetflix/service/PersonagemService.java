@@ -6,11 +6,17 @@ import br.com.cwi.reset.bclaud.apiresetflix.repositories.Repository;
 import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.PersonagemRequest;
 
 public class PersonagemService {
+    public static PersonagemService personagemService = new PersonagemService(Repository.getInstance(), AtorService.getInstance());
+
+    public static PersonagemService getInstance(){
+        return personagemService;
+    }
+
     private Repository personagemRepository;
     private AtorService atorService;
 
-    public PersonagemService(AtorService atorService) {
-        this.personagemRepository = Repository.getInstance();
+    public PersonagemService(Repository personagemRepository, AtorService atorService) {
+        this.personagemRepository = personagemRepository;
         this.atorService = atorService;
     }
 
@@ -30,7 +36,7 @@ public class PersonagemService {
         if (request.getNomePersonagem() == null)
             return "nome personagem";
 
-        if (request.getAtorId() == null)
+        if (request.getIdAtor() == null)
             return "ator id";
 
         if (request.getDescricaoPersonagem() == null)
@@ -45,7 +51,7 @@ public class PersonagemService {
     public PersonagemAtor personagemRequestoToPersonagem(PersonagemRequest request) {
         PersonagemAtor personagem = new PersonagemAtor();
         personagem.setNomePersonagem(request.getNomePersonagem());
-        personagem.setAtor(atorService.consultarAtor(request.getAtorId()));
+        personagem.setAtor(atorService.consultarAtor(request.getIdAtor()));
         personagem.setTipoAtuacao(request.getTipoAtuacao());
         return personagem;
     }
