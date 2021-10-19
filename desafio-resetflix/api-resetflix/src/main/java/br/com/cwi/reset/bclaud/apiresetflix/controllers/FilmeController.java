@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +35,12 @@ public class FilmeController {
     @ResponseStatus(HttpStatus.CREATED)
     public void criarFilme(@RequestBody FilmeRequest filmeRequest) {
         filmeService.criarFilme(filmeRequest);
+    }
+
+    @GetMapping(params = {"nomeFilme", "nomeDiretor", "nomePersonagem", "nomeAtor"})
+    @ResponseStatus(HttpStatus.OK)
+    public List<Filme> consultarFilmes(@RequestParam String nomeFilme,@RequestParam String nomeDiretor,@RequestParam String nomePersonagem,@RequestParam String nomeAtor){
+        return filmeService.consultarFilmes(nomeFilme, nomeDiretor, nomePersonagem, nomeAtor);
     }
 
     @GetMapping

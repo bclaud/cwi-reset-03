@@ -37,8 +37,9 @@ public class FilmeService {
         if (isDuplicatedGenre(request)) {
             throw new FilmeExceptions("Não é permitido informar o mesmo gênero mais de uma vez para o mesmo filme.");
         }
-        if (isDuplicatedByActorId(request)){
-            throw new FilmeExceptions("Não é permitido informar o mesmo ator/personagem mais de uma vez para o mesmo filme.");
+        if (isDuplicatedByActorId(request)) {
+            throw new FilmeExceptions(
+                    "Não é permitido informar o mesmo ator/personagem mais de uma vez para o mesmo filme.");
         }
 
         Filme filme = filmeRequestToFilme(request);
@@ -46,11 +47,24 @@ public class FilmeService {
         filmeRepository.persisteFilme(filme);
     }
 
-    public List<Filme> consultarFilmes(){
-        if(filmeRepository.recuperaFilmes().isEmpty()){
+    public List<Filme> consultarFilmes() {
+        if (filmeRepository.recuperaFilmes().isEmpty()) {
             throw new FilmeExceptions("Nenhum filme cadastrado, favor cadastar filmes.");
         }
         return filmeRepository.recuperaFilmes();
+    }
+
+    public List<Filme> consultarFilmes(String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) {
+
+        List<Filme> listaFiltrada = consultarFilmes().stream()
+        .filter(f -> !nomeFilme.equals("") && f.getNome().toUpperCase().contains(nomeFilme.toUpperCase()) || !nomeDiretor.equals("") && f.getDiretor().getNome().toUpperCase().contains(nomeDiretor.toUpperCase()) || !nomePersonagem.equals("") && f.getPersonagens().stream().anyMatch(p -> p.getNomePersonagem().toUpperCase().contains(nomePersonagem.toUpperCase())) || !nomePersonagem.equals("") && f.getPersonagens().stream().anyMatch(a -> a.getAtor().getNome().toUpperCase().contains(nomeAtor.toUpperCase())))
+        .collect(Collectors.toList());
+        
+        if(listaFiltrada.isEmpty()){
+            throw new FilmeExceptions("Ator não encontrato com os filtros nomeFilme="+nomeFilme+", nomeDiretor="+nomeDiretor+", nomePersonagem="+nomePersonagem+", nomeAtor="+nomeAtor+", favor informar outros filtros.");
+        }
+
+        return listaFiltrada;
     }
 
     private boolean isDuplicatedGenre(FilmeRequest request) {
