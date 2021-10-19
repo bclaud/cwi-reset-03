@@ -113,7 +113,7 @@ public class AtorService {
         }
 
         if(request.getAnoInicioAtividade() == null){
-            return "ano inicio nascimento";
+            return "ano inicio atividade";
         }
 
         if(request.getStatusCarreira() == null){

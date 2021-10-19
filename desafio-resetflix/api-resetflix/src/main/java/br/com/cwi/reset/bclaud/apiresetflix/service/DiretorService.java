@@ -105,7 +105,7 @@ public class DiretorService {
         }
 
         if(request.getAnoInicioAtividade() == null){
-            return "ano inicio nascimento";
+            return "ano inicio atividade";
         }
         
         return null;
