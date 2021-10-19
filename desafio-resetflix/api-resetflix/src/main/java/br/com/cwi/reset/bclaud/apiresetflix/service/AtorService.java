@@ -124,6 +124,6 @@ public class AtorService {
     }
 
     public Long idGenerator(){
-        return (long) atorRepository.recuperaAtores().size();
+        return (long) atorRepository.recuperaAtores().size() + 1;
     }
 }

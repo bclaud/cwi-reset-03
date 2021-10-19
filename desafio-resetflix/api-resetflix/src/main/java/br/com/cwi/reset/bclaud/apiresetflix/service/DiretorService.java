@@ -112,6 +112,6 @@ public class DiretorService {
     }
 
     public Long idGenerator(){
-        return (long) diretorRepository.recuperaDiretores().size();
+        return (long) diretorRepository.recuperaDiretores().size() + 1;
     }
 }
