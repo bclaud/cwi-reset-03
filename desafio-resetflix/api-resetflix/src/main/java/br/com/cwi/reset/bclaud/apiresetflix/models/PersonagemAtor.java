@@ -9,6 +9,9 @@ public class PersonagemAtor {
     private String nomePersonagem;
     private TipoAtuacao tipoAtuacao;
 
+    public PersonagemAtor() {
+    }
+
     public PersonagemAtor(Long id, Ator ator, String nomePersonagem, TipoAtuacao tipoAtuacao) {
         this.id = id;
         this.ator = ator;

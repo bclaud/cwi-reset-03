@@ -11,6 +11,8 @@ import br.com.cwi.reset.bclaud.apiresetflix.repositories.Repository;
 import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.DiretorRequest;
 
 public class DiretorService {
+    
+
     Repository diretorRepository;
 
     public DiretorService(Repository diretorRepository){
