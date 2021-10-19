@@ -1,13 +1,16 @@
 package br.com.cwi.reset.bclaud.apiresetflix.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.cwi.reset.bclaud.apiresetflix.exceptions.CampoVazioException;
+import br.com.cwi.reset.bclaud.apiresetflix.exceptions.FilmeExceptions;
 import br.com.cwi.reset.bclaud.apiresetflix.models.Filme;
 import br.com.cwi.reset.bclaud.apiresetflix.models.PersonagemAtor;
 import br.com.cwi.reset.bclaud.apiresetflix.repositories.Repository;
 import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.FilmeRequest;
+import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.PersonagemRequest;
 
 public class FilmeService {
 
@@ -17,8 +20,8 @@ public class FilmeService {
     private EstudioService estudioService;
     private PersonagemService personagemService;
 
-    public FilmeService(Repository filmeRepository, AtorService atorService, DiretorService diretorService, EstudioService estudioService,
-            PersonagemService personagemService) {
+    public FilmeService(Repository filmeRepository, AtorService atorService, DiretorService diretorService,
+            EstudioService estudioService, PersonagemService personagemService) {
         this.filmeRepository = filmeRepository;
         this.atorService = atorService;
         this.diretorService = diretorService;
@@ -28,16 +31,38 @@ public class FilmeService {
 
     public void criarFilme(FilmeRequest request) {
         String checkCampos = checkNullFields(request);
-
         if (checkCampos != null) {
             throw new CampoVazioException(checkCampos);
+        }
+        if (isDuplicatedGenre(request)) {
+            throw new FilmeExceptions("Não é permitido informar o mesmo gênero mais de uma vez para o mesmo filme.");
+        }
+        if (isDuplicatedByActorId(request)){
+            throw new FilmeExceptions("Não é permitido informar o mesmo ator/personagem mais de uma vez para o mesmo filme.");
         }
 
         Filme filme = filmeRequestToFilme(request);
         filme.setId(idGenerator());
+        filmeRepository.persisteFilme(filme);
     }
 
-    public Filme filmeRequestToFilme(FilmeRequest request) {
+    public List<Filme> consultarFilmes(){
+        if(filmeRepository.recuperaFilmes().isEmpty()){
+            throw new FilmeExceptions("Nenhum filme cadastrado, favor cadastar filmes.");
+        }
+        return filmeRepository.recuperaFilmes();
+    }
+
+    private boolean isDuplicatedGenre(FilmeRequest request) {
+        return request.getGeneros().stream().map(Enum::toString).distinct().count() < request.getGeneros().size();
+    }
+
+    private boolean isDuplicatedByActorId(FilmeRequest request) {
+        return request.getPersonagens().stream().map(PersonagemRequest::getIdAtor).distinct().count() < request
+                .getPersonagens().size();
+    }
+
+    private Filme filmeRequestToFilme(FilmeRequest request) {
         Filme filme = new Filme();
         filme.setNome(request.getNome());
         filme.setAnoLancamento(request.getAnoLancamento());
@@ -52,7 +77,7 @@ public class FilmeService {
         return filme;
     }
 
-    public String checkNullFields(FilmeRequest request) {
+    private String checkNullFields(FilmeRequest request) {
         if (request.getNome() == null)
             return "nome";
 
@@ -80,7 +105,7 @@ public class FilmeService {
         return null;
     }
 
-    public Long idGenerator() {
+    private Long idGenerator() {
         return (long) filmeRepository.recuperaFilmes().size() + 1;
     }
 }

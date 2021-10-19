@@ -1,12 +1,16 @@
 package br.com.cwi.reset.bclaud.apiresetflix.controllers;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cwi.reset.bclaud.apiresetflix.models.Filme;
 import br.com.cwi.reset.bclaud.apiresetflix.repositories.Repository;
 import br.com.cwi.reset.bclaud.apiresetflix.service.AtorService;
 import br.com.cwi.reset.bclaud.apiresetflix.service.DiretorService;
@@ -30,5 +34,11 @@ public class FilmeController {
     @ResponseStatus(HttpStatus.CREATED)
     public void criarFilme(@RequestBody FilmeRequest filmeRequest) {
         filmeService.criarFilme(filmeRequest);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Filme> consultarFilmes(){
+        return filmeService.consultarFilmes();
     }
 }
