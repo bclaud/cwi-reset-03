@@ -24,6 +24,15 @@ public class EstudioService {
         }
 
         Estudio estudio = estudioRequestToEstudio(request);
+
+        if(isDuplicated(estudio)){
+            throw new EstudioExceptions("Já existe um estúdio cadastrado para o nome "+estudio.getNome() +".");
+        }
+
+        if(!isValidCreationDate(estudio)){
+            throw new EstudioExceptions("Não é possível cadastrar estúdios do futuro.");
+        }
+
         estudio.setId(idGenerator());
         estudioRepository.persisteEstudio(estudio);
     }
@@ -45,6 +54,10 @@ public class EstudioService {
             throw new EstudioExceptions("Estúdio não encontrato com o filtro " + filtroNome +", favor informar outro filtro.");
         }
         return listaFiltrada;
+    }
+
+    public Estudio consultarEstudio(Long id){
+        return estudioRepository.consultarEstudio(id).orElseThrow(() -> new EstudioExceptions("Nenhum estúdio encontrado com o parâmetro id="+id+", favor verifique os parâmetros informados."));
     }
 
     public boolean isDuplicated(Estudio estudio){
