@@ -43,9 +43,9 @@ public class AtorService {
         atorRepository.persisteAtor(ator);
     }
 
-    public List<AtorEmAtividade> listarAtoresEmAtividade(){
+    public List<AtorEmAtividade> listarAtoresEmAtividade() throws AtorExceptions{
         if(atorRepository.recuperaAtores().isEmpty()){
-            throw new AtorExceptions("Nenhum ator cadastrado, favor cadastar atores.");
+            throw new AtorExceptions("Nenhum ator cadastrado, favor cadastrar atores.");
         }
         return atorRepository.recuperaAtores().stream()
         .filter(ator -> ator.getStatusCarreira().toString().equals("EM_ATIVIDADE"))
@@ -53,7 +53,7 @@ public class AtorService {
         .collect(Collectors.toList());
     }
 
-    public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome){
+    public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome) throws AtorExceptions{
         List<AtorEmAtividade> listaFiltrada =  listarAtoresEmAtividade().stream()
         .filter(ator -> ator.getNome().toUpperCase().contains(filtroNome.toUpperCase()))
         .collect(Collectors.toList());
@@ -74,7 +74,7 @@ public class AtorService {
         .orElseThrow(() -> new AtorExceptions("Nenhum ator encontrado com o parâmetro id="+id+", favor verifique os parâmetros informados."));
     }
 
-    public List<Ator> consultarAtores(){
+    public List<Ator> consultarAtores() throws AtorExceptions{
         List<Ator> listaAtores = atorRepository.recuperaAtores();
         if(listaAtores.isEmpty()){
             throw new AtorExceptions("Nenhum ator cadastrado, favor cadastar atores.");
