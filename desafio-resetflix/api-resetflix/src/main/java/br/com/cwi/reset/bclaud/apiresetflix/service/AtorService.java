@@ -9,6 +9,7 @@ import br.com.cwi.reset.bclaud.apiresetflix.exceptions.CampoVazioException;
 import br.com.cwi.reset.bclaud.apiresetflix.models.Ator;
 import br.com.cwi.reset.bclaud.apiresetflix.repositories.Repository;
 import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.AtorRequest;
+import br.com.cwi.reset.bclaud.apiresetflix.service.responsemodels.AtorEmAtividade;
 
 public class AtorService {
     
@@ -39,20 +40,21 @@ public class AtorService {
         }
 
         ator.setId(idGenerator());
-        atorRepository.salvarAtor(ator);
+        atorRepository.persisteAtor(ator);
     }
 
-    public List<Ator> listarAtoresEmAtividade(){
-        if(atorRepository.listarAtores().isEmpty()){
+    public List<AtorEmAtividade> listarAtoresEmAtividade(){
+        if(atorRepository.recuperaAtores().isEmpty()){
             throw new AtorExceptions("Nenhum ator cadastrado, favor cadastar atores.");
         }
-        return atorRepository.listarAtores().stream()
+        return atorRepository.recuperaAtores().stream()
         .filter(ator -> ator.getStatusCarreira().toString().equals("EM_ATIVIDADE"))
+        .map(ator -> new AtorEmAtividade(ator))
         .collect(Collectors.toList());
     }
 
-    public List<Ator> listarAtoresEmAtividade(String filtroNome){
-        List<Ator> listaFiltrada =  listarAtoresEmAtividade().stream()
+    public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome){
+        List<AtorEmAtividade> listaFiltrada =  listarAtoresEmAtividade().stream()
         .filter(ator -> ator.getNome().toUpperCase().contains(filtroNome.toUpperCase()))
         .collect(Collectors.toList());
 
@@ -73,7 +75,7 @@ public class AtorService {
     }
 
     public List<Ator> consultarAtores(){
-        List<Ator> listaAtores = atorRepository.listarAtores();
+        List<Ator> listaAtores = atorRepository.recuperaAtores();
         if(listaAtores.isEmpty()){
             throw new AtorExceptions("Nenhum ator cadastrado, favor cadastar atores.");
         }
@@ -81,7 +83,7 @@ public class AtorService {
     }
 
     public boolean isDuplicated(Ator ator){
-        return atorRepository.listarAtores().stream()
+        return atorRepository.recuperaAtores().stream()
         .anyMatch(a -> a.getNome().equalsIgnoreCase(ator.getNome()));
     }
 
@@ -122,6 +124,6 @@ public class AtorService {
     }
 
     public Long idGenerator(){
-        return (long) atorRepository.listarAtores().size();
+        return (long) atorRepository.recuperaAtores().size();
     }
 }

@@ -39,11 +39,11 @@ public class DiretorService {
         }
 
         diretor.setId(idGenerator());
-        diretorRepository.salvarDiretor(diretor);
+        diretorRepository.persisteDiretor(diretor);
     }
 
     public List<Diretor> listarDiretores(String filtroNome) throws DiretorExceptions{
-        List<Diretor> listaDiretoresFiltrado = diretorRepository.listarDiretores().stream()
+        List<Diretor> listaDiretoresFiltrado = diretorRepository.recuperaDiretores().stream()
         .filter(diretor -> diretor.getNome().toUpperCase().contains(filtroNome.toUpperCase()))
         .collect(Collectors.toList());
 
@@ -55,7 +55,7 @@ public class DiretorService {
     }
 
     public List<Diretor> listarDiretores() throws DiretorExceptions{
-        List<Diretor> listaDiretor = diretorRepository.listarDiretores().stream()
+        List<Diretor> listaDiretor = diretorRepository.recuperaDiretores().stream()
         .collect(Collectors.toList());
 
         if(listaDiretor.isEmpty()){
@@ -75,7 +75,7 @@ public class DiretorService {
     }
 
     public boolean isDuplicated(Diretor diretor){
-        return diretorRepository.listarDiretores().stream()
+        return diretorRepository.recuperaDiretores().stream()
         .anyMatch(d -> d.getNome().equalsIgnoreCase(diretor.getNome()));
     }
 
@@ -112,6 +112,6 @@ public class DiretorService {
     }
 
     public Long idGenerator(){
-        return (long) diretorRepository.listarDiretores().size();
+        return (long) diretorRepository.recuperaDiretores().size();
     }
 }

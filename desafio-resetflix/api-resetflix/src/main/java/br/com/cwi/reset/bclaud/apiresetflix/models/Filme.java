@@ -8,9 +8,11 @@ public class Filme {
     
     private Long id;
     private String nome;
+    private Integer anoLancamento;
     private String capaFilme;
     private List<Genero> generos;
     private Diretor diretor;
+    private Estudio estudio;
     private List<PersonagemAtor> personagens;
     private String resumo;
 
@@ -34,6 +36,14 @@ public class Filme {
         this.nome = nome;
     }
 
+    public Integer getAnoLancamento() {
+        return anoLancamento;
+    }
+
+    public void setAnoLancamento(Integer anoLancamento) {
+        this.anoLancamento = anoLancamento;
+    }
+
     public String getCapaFilme() {
         return capaFilme;
     }
@@ -46,6 +56,10 @@ public class Filme {
         return generos;
     }
 
+    public void setGeneros(List<Genero> generos) {
+        this.generos = generos;
+    }
+
     public Diretor getDiretor() {
         return diretor;
     }
@@ -54,8 +68,20 @@ public class Filme {
         this.diretor = diretor;
     }
 
+    public Estudio getEstudio() {
+        return estudio;
+    }
+
+    public void setEstudio(Estudio estudio) {
+        this.estudio = estudio;
+    }
+
     public List<PersonagemAtor> getPersonagens() {
         return personagens;
+    }
+
+    public void setPersonagens(List<PersonagemAtor> personagens) {
+        this.personagens = personagens;
     }
 
     public String getResumo() {
@@ -64,7 +90,6 @@ public class Filme {
 
     public void setResumo(String resumo) {
         this.resumo = resumo;
-    }
-
+    }    
     
 }
