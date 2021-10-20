@@ -7,6 +7,10 @@ public class DiretorRequest {
     private String nome;
     private LocalDate dataNascimento;
     private Integer anoInicioAtividade;
+
+    public DiretorRequest(){
+        
+    }
     
     public DiretorRequest(String nome, LocalDate dataNascimento, Integer anoInicioAtividade) {
         this.nome = nome;

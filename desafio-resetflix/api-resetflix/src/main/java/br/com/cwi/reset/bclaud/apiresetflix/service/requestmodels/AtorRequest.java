@@ -11,6 +11,10 @@ public class AtorRequest {
     private StatusCarreira statusCarreira;
     private Integer anoInicioAtividade;
 
+    public AtorRequest(){
+        
+    }
+
     public AtorRequest(String nome, LocalDate dataNascimento, StatusCarreira statusCarreira,
             Integer anoInicioAtividade) {
         this.nome = nome;
