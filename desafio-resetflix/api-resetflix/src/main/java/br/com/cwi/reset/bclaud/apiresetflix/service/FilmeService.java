@@ -41,6 +41,9 @@ public class FilmeService {
             throw new FilmeExceptions(
                     "Não é permitido informar o mesmo ator/personagem mais de uma vez para o mesmo filme.");
         }
+        if (request.getGeneros().isEmpty()) {
+            throw new FilmeExceptions("Deve ser informado pelo menos um gênero para o cadastro do filme.");
+        }
 
         Filme filme = filmeRequestToFilme(request);
         filme.setId(idGenerator());
@@ -56,12 +59,19 @@ public class FilmeService {
 
     public List<Filme> consultarFilmes(String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) {
 
-        List<Filme> listaFiltrada = consultarFilmes().stream()
-        .filter(f -> !nomeFilme.equals("") && f.getNome().toUpperCase().contains(nomeFilme.toUpperCase()) || !nomeDiretor.equals("") && f.getDiretor().getNome().toUpperCase().contains(nomeDiretor.toUpperCase()) || !nomePersonagem.equals("") && f.getPersonagens().stream().anyMatch(p -> p.getNomePersonagem().toUpperCase().contains(nomePersonagem.toUpperCase())) || !nomePersonagem.equals("") && f.getPersonagens().stream().anyMatch(a -> a.getAtor().getNome().toUpperCase().contains(nomeAtor.toUpperCase())))
-        .collect(Collectors.toList());
-        
-        if(listaFiltrada.isEmpty()){
-            throw new FilmeExceptions("Filme não encontrato com os filtros nomeFilme="+nomeFilme+", nomeDiretor="+nomeDiretor+", nomePersonagem="+nomePersonagem+", nomeAtor="+nomeAtor+", favor informar outros filtros.");
+        List<Filme> listaFiltrada = consultarFilmes().stream().filter(f -> !nomeFilme.equals("")
+                && f.getNome().toUpperCase().contains(nomeFilme.toUpperCase())
+                || !nomeDiretor.equals("") && f.getDiretor().getNome().toUpperCase().contains(nomeDiretor.toUpperCase())
+                || !nomePersonagem.equals("") && f.getPersonagens().stream()
+                        .anyMatch(p -> p.getNomePersonagem().toUpperCase().contains(nomePersonagem.toUpperCase()))
+                || !nomePersonagem.equals("") && f.getPersonagens().stream()
+                        .anyMatch(a -> a.getAtor().getNome().toUpperCase().contains(nomeAtor.toUpperCase())))
+                .collect(Collectors.toList());
+
+        if (listaFiltrada.isEmpty()) {
+            throw new FilmeExceptions("Filme não encontrato com os filtros nomeFilme=" + nomeFilme + ", nomeDiretor="
+                    + nomeDiretor + ", nomePersonagem=" + nomePersonagem + ", nomeAtor=" + nomeAtor
+                    + ", favor informar outros filtros.");
         }
 
         return listaFiltrada;
@@ -73,7 +83,9 @@ public class FilmeService {
 
     private boolean isDuplicatedByActorId(FilmeRequest request) {
         return request.getPersonagens().stream().map(PersonagemRequest::getIdAtor).distinct().count() < request
-                .getPersonagens().size();
+                .getPersonagens().size()
+                && request.getPersonagens().stream().map(PersonagemRequest::getNomePersonagem).distinct()
+                        .count() < request.getPersonagens().size();
     }
 
     private Filme filmeRequestToFilme(FilmeRequest request) {

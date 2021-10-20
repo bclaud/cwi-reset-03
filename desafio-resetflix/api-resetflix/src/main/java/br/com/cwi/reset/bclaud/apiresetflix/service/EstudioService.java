@@ -58,7 +58,7 @@ public class EstudioService {
         .collect(Collectors.toList());
 
         if(listaFiltrada.isEmpty()){
-            throw new EstudioExceptions("Estúdio não encontrato com o filtro " + filtroNome +", favor informar outro filtro.");
+            throw new EstudioExceptions("Estúdio não encontrado com o filtro " + filtroNome +", favor informar outro filtro.");
         }
         return listaFiltrada;
     }
