@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cwi.reset.bclaud.apiresetflix.models.Filme;
 import br.com.cwi.reset.bclaud.apiresetflix.repositories.Repository;
-import br.com.cwi.reset.bclaud.apiresetflix.service.AtorService;
 import br.com.cwi.reset.bclaud.apiresetflix.service.DiretorService;
 import br.com.cwi.reset.bclaud.apiresetflix.service.EstudioService;
 import br.com.cwi.reset.bclaud.apiresetflix.service.FilmeService;
@@ -27,8 +26,8 @@ public class FilmeController {
     private FilmeService filmeService;
 
     public FilmeController() {
-        this.filmeService = new FilmeService(Repository.getInstance(), AtorService.getInstance(),
-                DiretorService.getInstance(), EstudioService.getInstance(), PersonagemService.getInstance());
+        this.filmeService = new FilmeService(Repository.getInstance(), DiretorService.getInstance(),
+                EstudioService.getInstance(), PersonagemService.getInstance());
     }
 
     @PostMapping
@@ -37,15 +36,16 @@ public class FilmeController {
         filmeService.criarFilme(filmeRequest);
     }
 
-    @GetMapping(params = {"nomeFilme", "nomeDiretor", "nomePersonagem", "nomeAtor"})
+    @GetMapping(params = { "nomeFilme", "nomeDiretor", "nomePersonagem", "nomeAtor" })
     @ResponseStatus(HttpStatus.OK)
-    public List<Filme> consultarFilmes(@RequestParam String nomeFilme,@RequestParam String nomeDiretor,@RequestParam String nomePersonagem,@RequestParam String nomeAtor){
+    public List<Filme> consultarFilmes(@RequestParam String nomeFilme, @RequestParam String nomeDiretor,
+            @RequestParam String nomePersonagem, @RequestParam String nomeAtor) {
         return filmeService.consultarFilmes(nomeFilme, nomeDiretor, nomePersonagem, nomeAtor);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Filme> consultarFilmes(){
+    public List<Filme> consultarFilmes() {
         return filmeService.consultarFilmes();
     }
 }

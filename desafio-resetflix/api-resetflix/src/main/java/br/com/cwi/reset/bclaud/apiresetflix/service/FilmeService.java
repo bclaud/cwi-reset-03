@@ -1,6 +1,5 @@
 package br.com.cwi.reset.bclaud.apiresetflix.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,15 +14,13 @@ import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.PersonagemRequ
 public class FilmeService {
 
     private Repository filmeRepository;
-    private AtorService atorService;
     private DiretorService diretorService;
     private EstudioService estudioService;
     private PersonagemService personagemService;
 
-    public FilmeService(Repository filmeRepository, AtorService atorService, DiretorService diretorService,
+    public FilmeService(Repository filmeRepository, DiretorService diretorService,
             EstudioService estudioService, PersonagemService personagemService) {
         this.filmeRepository = filmeRepository;
-        this.atorService = atorService;
         this.diretorService = diretorService;
         this.estudioService = estudioService;
         this.personagemService = personagemService;
