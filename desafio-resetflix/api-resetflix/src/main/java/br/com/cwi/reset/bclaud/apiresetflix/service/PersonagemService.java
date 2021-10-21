@@ -57,6 +57,6 @@ public class PersonagemService {
     }
 
     private Long idGenerator() {
-        return (long) personagemRepository.recuperaAtores().size() + 1;
+        return (long) personagemRepository.recuperaPersonagens().size() + 1;
     }
 }

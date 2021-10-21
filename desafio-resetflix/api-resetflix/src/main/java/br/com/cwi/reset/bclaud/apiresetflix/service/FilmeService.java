@@ -96,11 +96,14 @@ public class FilmeService {
         filme.setGeneros(request.getGeneros());
         filme.setDiretor(diretorService.consultarDiretor(request.getIdDiretor()));
         filme.setEstudio(estudioService.consultarEstudio(request.getIdEstudio()));
-        List<PersonagemAtor> listaPersonagem = request.getPersonagens().stream()
-                .map(p -> personagemService.criarPersonagem(p)).collect(Collectors.toList());
-        filme.setPersonagens(listaPersonagem);
+        filme.setPersonagens(createCharacterByMovieRequest(request));
         filme.setResumo(request.getResumo());
         return filme;
+    }
+
+    private List<PersonagemAtor> createCharacterByMovieRequest(FilmeRequest request) {
+        return request.getPersonagens().stream().map(p -> personagemService.criarPersonagem(p))
+                .collect(Collectors.toList());
     }
 
     private String checkNullFields(FilmeRequest request) {
