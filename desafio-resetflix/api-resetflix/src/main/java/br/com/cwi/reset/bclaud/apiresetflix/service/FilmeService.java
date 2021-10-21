@@ -37,7 +37,7 @@ public class FilmeService {
         if (isDuplicatedGenre(request)) {
             throw new FilmeExceptions("Não é permitido informar o mesmo gênero mais de uma vez para o mesmo filme.");
         }
-        if (isDuplicatedByActorId(request)) {
+        if (isDuplicatedByActorIdAndActorName(request)) {
             throw new FilmeExceptions(
                     "Não é permitido informar o mesmo ator/personagem mais de uma vez para o mesmo filme.");
         }
@@ -81,7 +81,7 @@ public class FilmeService {
         return request.getGeneros().stream().map(Enum::toString).distinct().count() < request.getGeneros().size();
     }
 
-    private boolean isDuplicatedByActorId(FilmeRequest request) {
+    private boolean isDuplicatedByActorIdAndActorName(FilmeRequest request) {
         return request.getPersonagens().stream().map(PersonagemRequest::getIdAtor).distinct().count() < request
                 .getPersonagens().size()
                 && request.getPersonagens().stream().map(PersonagemRequest::getNomePersonagem).distinct()
