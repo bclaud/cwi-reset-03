@@ -67,16 +67,16 @@ public class EstudioService {
         return estudioRepository.consultarEstudio(id).orElseThrow(() -> new EstudioExceptions("Nenhum estúdio encontrado com o parâmetro id="+id+", favor verifique os parâmetros informados."));
     }
 
-    public boolean isDuplicated(Estudio estudio){
+    private boolean isDuplicated(Estudio estudio){
         return estudioRepository.recuperaEstudios().stream()
         .anyMatch(e -> e.getNome().equalsIgnoreCase(estudio.getNome()));
     }
 
-    public boolean isValidCreationDate(Estudio estudio){
+    private boolean isValidCreationDate(Estudio estudio){
         return estudio.getDataCriacao().isBefore(LocalDate.now());
     }
 
-    public String checkNullFields(EstudioRequest request){
+    private String checkNullFields(EstudioRequest request){
         if(request.getNome() == null){
             return "nome";
         }
@@ -96,7 +96,7 @@ public class EstudioService {
         return null;
     }
 
-    public Estudio estudioRequestToEstudio(EstudioRequest request){
+    private Estudio estudioRequestToEstudio(EstudioRequest request){
         Estudio estudio = new Estudio();
         estudio.setNome(request.getNome());
         estudio.setDescricao(request.getDescricao());
@@ -105,7 +105,7 @@ public class EstudioService {
         return estudio;
     }
 
-    public Long idGenerator(){
+    private Long idGenerator(){
         return (long) estudioRepository.recuperaEstudios().size() + 1;
     }
 }

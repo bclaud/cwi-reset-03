@@ -32,7 +32,7 @@ public class PersonagemService {
         return personagem;
     }
 
-    public String checkNullFields(PersonagemRequest request) {
+    private String checkNullFields(PersonagemRequest request) {
         if (request.getNomePersonagem() == null)
             return "nome personagem";
 
@@ -48,7 +48,7 @@ public class PersonagemService {
         return null;
     }
 
-    public PersonagemAtor personagemRequestoToPersonagem(PersonagemRequest request) {
+    private PersonagemAtor personagemRequestoToPersonagem(PersonagemRequest request) {
         PersonagemAtor personagem = new PersonagemAtor();
         personagem.setNomePersonagem(request.getNomePersonagem());
         personagem.setAtor(atorService.consultarAtor(request.getIdAtor()));
@@ -56,7 +56,7 @@ public class PersonagemService {
         return personagem;
     }
 
-    public Long idGenerator() {
+    private Long idGenerator() {
         return (long) personagemRepository.recuperaAtores().size() + 1;
     }
 }

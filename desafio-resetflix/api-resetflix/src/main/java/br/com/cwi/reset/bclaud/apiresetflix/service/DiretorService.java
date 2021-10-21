@@ -80,28 +80,28 @@ public class DiretorService {
         .orElseThrow(() -> new DiretorExceptions("Nenhum diretor encontrado com o parâmetro id="+id+", favor verifique os parâmetros informados."));
     }
 
-    public boolean isDuplicated(Diretor diretor){
+    private boolean isDuplicated(Diretor diretor){
         return diretorRepository.recuperaDiretores().stream()
         .anyMatch(d -> d.getNome().equalsIgnoreCase(diretor.getNome()));
     }
 
-    public boolean isValidBirthdate(Diretor diretor){
+    private boolean isValidBirthdate(Diretor diretor){
         return diretor.getDataNascimento().isBefore(LocalDate.now());
     }
 
-    public boolean isValidActivityStartdate(Diretor diretor){
+    private boolean isValidActivityStartdate(Diretor diretor){
         return diretor.getAnoInicioAtividade() > diretor.getDataNascimento().getYear();
     }
 
-    public boolean isValidName(Diretor diretor){
+    private boolean isValidName(Diretor diretor){
         return diretor.getNome().contains(" ");
     }
 
-    public Diretor diretorRequestToDiretor(DiretorRequest request){
+    private Diretor diretorRequestToDiretor(DiretorRequest request){
         return new Diretor(request.getNome(), request.getDataNascimento(), request.getAnoInicioAtividade());
     }
 
-    public String checkNullFields(DiretorRequest request){
+    private String checkNullFields(DiretorRequest request){
         if(request.getNome() == null){
             return "nome";
         }
@@ -117,7 +117,7 @@ public class DiretorService {
         return null;
     }
 
-    public Long idGenerator(){
+    private Long idGenerator(){
         return (long) diretorRepository.recuperaDiretores().size() + 1;
     }
 }

@@ -88,28 +88,28 @@ public class AtorService {
         return listaAtores;
     }
 
-    public boolean isDuplicated(Ator ator){
+    private boolean isDuplicated(Ator ator){
         return atorRepository.recuperaAtores().stream()
         .anyMatch(a -> a.getNome().equalsIgnoreCase(ator.getNome()));
     }
 
-    public boolean isValidBirthdate(Ator ator){
+    private boolean isValidBirthdate(Ator ator){
         return ator.getDataNascimento().isBefore(LocalDate.now());
     }
 
-    public boolean isValidActivityStartdate(Ator ator){
+    private boolean isValidActivityStartdate(Ator ator){
         return ator.getAnoInicioAtividade() > ator.getDataNascimento().getYear();
     }
 
-    public boolean isValidName(Ator ator){
+    private boolean isValidName(Ator ator){
         return ator.getNome().contains(" ");
     }
 
-    public Ator atorRequestToAtor(AtorRequest request){
+    private Ator atorRequestToAtor(AtorRequest request){
         return new Ator(request.getNome(), request.getDataNascimento(), request.getStatusCarreira(), request.getAnoInicioAtividade());
     }
 
-    public String checkNullFields(AtorRequest request){
+    private String checkNullFields(AtorRequest request){
         if(request.getNome() == null){
             return "nome";
         }
@@ -129,7 +129,7 @@ public class AtorService {
         return null;
     }
 
-    public Long idGenerator(){
+    private Long idGenerator(){
         return (long) atorRepository.recuperaAtores().size() + 1;
     }
 }
