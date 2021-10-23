@@ -43,7 +43,7 @@ public class AtorController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deletarAtor(@PathVariable Integer id){
-        atorRepository.delete(atorRepository.findById(id).get());
+        atorRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
