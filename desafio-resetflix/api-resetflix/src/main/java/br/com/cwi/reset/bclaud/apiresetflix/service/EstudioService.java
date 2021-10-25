@@ -25,10 +25,6 @@ public class EstudioService {
     }
 
     public void criarEstudio(EstudioRequest request) throws EstudioExceptions, CampoVazioException{
-        String checkCampo = checkNullFields(request);
-        if(checkCampo != null){
-            throw new CampoVazioException(checkCampo);
-        }
 
         Estudio estudio = estudioRequestToEstudio(request);
 
@@ -74,26 +70,6 @@ public class EstudioService {
 
     private boolean isValidCreationDate(Estudio estudio){
         return estudio.getDataCriacao().isBefore(LocalDate.now());
-    }
-
-    private String checkNullFields(EstudioRequest request){
-        if(request.getNome() == null){
-            return "nome";
-        }
-
-        if(request.getDescricao() == null){
-            return "descricao";
-        }
-
-        if(request.getDataCriacao() == null){
-            return "data criacao";
-        }
-
-        if(request.getStatusAtividade() == null){
-            return "status atividade";
-        }
-
-        return null;
     }
 
     private Estudio estudioRequestToEstudio(EstudioRequest request){

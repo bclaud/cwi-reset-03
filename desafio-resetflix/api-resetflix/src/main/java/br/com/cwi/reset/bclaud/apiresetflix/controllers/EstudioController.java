@@ -2,6 +2,8 @@ package br.com.cwi.reset.bclaud.apiresetflix.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +31,7 @@ public class EstudioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarEstudio(@RequestBody EstudioRequest request){
+    public void criarEstudio(@RequestBody @Valid EstudioRequest request){
         estudioService.criarEstudio(request);
     }
 
