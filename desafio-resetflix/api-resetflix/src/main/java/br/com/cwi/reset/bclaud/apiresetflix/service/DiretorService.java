@@ -24,12 +24,6 @@ public class DiretorService {
     }
 
     public void cadastrarDiretor(DiretorRequest request) throws DiretorExceptions, CampoVazioException{
-        String checkCampos = checkNullFields(request);
-        
-        if(checkCampos != null){
-            throw new CampoVazioException(checkCampos);
-        }
-
         Diretor diretor = diretorRequestToDiretor(request);
         if(isDuplicated(diretor)){
             throw new DiretorExceptions("Já existe um diretor cadastrado para o nome " + diretor.getNome() +".");
@@ -99,22 +93,6 @@ public class DiretorService {
 
     private Diretor diretorRequestToDiretor(DiretorRequest request){
         return new Diretor(request.getNome(), request.getDataNascimento(), request.getAnoInicioAtividade());
-    }
-
-    private String checkNullFields(DiretorRequest request){
-        if(request.getNome() == null){
-            return "nome";
-        }
-
-        if(request.getDataNascimento() == null){
-            return "data de nascimento";
-        }
-
-        if(request.getAnoInicioAtividade() == null){
-            return "ano inicio atividade";
-        }
-        
-        return null;
     }
 
     private Long idGenerator(){

@@ -27,6 +27,17 @@ public class FilmeService {
     }
 
     public void criarFilme(FilmeRequest request) {
+        if (isDuplicatedGenre(request)) {
+            throw new FilmeExceptions("Não é permitido informar o mesmo gênero mais de uma vez para o mesmo filme.");
+        }
+        if (isDuplicatedByActorIdAndActorName(request)) {
+            throw new FilmeExceptions(
+                    "Não é permitido informar o mesmo ator/personagem mais de uma vez para o mesmo filme.");
+        }
+        if (request.getGeneros().isEmpty()) {
+            throw new FilmeExceptions("Deve ser informado pelo menos um gênero para o cadastro do filme.");
+        }
+
         Filme filme = filmeRequestToFilme(request);
         filme.setId(idGenerator());
         filmeRepository.persisteFilme(filme);
@@ -87,6 +98,7 @@ public class FilmeService {
         return request.getPersonagens().stream().map(p -> personagemService.criarPersonagem(p))
                 .collect(Collectors.toList());
     }
+
 
     private Long idGenerator() {
         return (long) filmeRepository.recuperaFilmes().size() + 1;

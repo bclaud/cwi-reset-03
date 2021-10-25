@@ -2,6 +2,8 @@ package br.com.cwi.reset.bclaud.apiresetflix.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +30,7 @@ public class DiretorController {
     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void cadastrarDiretor(@RequestBody DiretorRequest diretorRequest){
+    public void cadastrarDiretor(@RequestBody @Valid DiretorRequest diretorRequest){
         diretorService.cadastrarDiretor(diretorRequest);
     }
 
