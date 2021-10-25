@@ -25,11 +25,7 @@ public class AtorService {
         this.atorRepository = atorRepository;
     }
 
-    public void criarAtor(AtorRequest request) throws AtorExceptions, CampoVazioException{
-        String checkCampo = checkNullFields(request);
-        if(checkCampo != null){
-            throw new CampoVazioException(checkCampo);
-        }
+    public void criarAtor(AtorRequest request) throws AtorExceptions{
 
         Ator ator = atorRequestToAtor(request);
         if(isDuplicated(ator)){
@@ -107,26 +103,6 @@ public class AtorService {
 
     private Ator atorRequestToAtor(AtorRequest request){
         return new Ator(request.getNome(), request.getDataNascimento(), request.getStatusCarreira(), request.getAnoInicioAtividade());
-    }
-
-    private String checkNullFields(AtorRequest request){
-        if(request.getNome() == null){
-            return "nome";
-        }
-
-        if(request.getDataNascimento() == null){
-            return "data de nascimento";
-        }
-
-        if(request.getAnoInicioAtividade() == null){
-            return "ano inicio atividade";
-        }
-
-        if(request.getStatusCarreira() == null){
-            return "status carreira";
-        }
-        
-        return null;
     }
 
     private Long idGenerator(){

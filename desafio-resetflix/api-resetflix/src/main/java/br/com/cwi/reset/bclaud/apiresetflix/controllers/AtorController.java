@@ -2,6 +2,8 @@ package br.com.cwi.reset.bclaud.apiresetflix.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +32,7 @@ public class AtorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarAtor(@RequestBody AtorRequest atorRequest){
+    public void criarAtor(@RequestBody @Valid AtorRequest atorRequest){
         atorService.criarAtor(atorRequest);
     }
 

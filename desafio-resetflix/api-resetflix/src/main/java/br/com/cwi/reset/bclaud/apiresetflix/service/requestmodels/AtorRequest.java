@@ -2,13 +2,19 @@ package br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotNull;
+
 import br.com.cwi.reset.bclaud.apiresetflix.enums.StatusCarreira;
 
 public class AtorRequest {
 
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo nome.")
     private String nome;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo dataNascimento.")
     private LocalDate dataNascimento;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo statusCarreira.")
     private StatusCarreira statusCarreira;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo statusCarreira.")
     private Integer anoInicioAtividade;
 
     public AtorRequest(){
