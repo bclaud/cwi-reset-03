@@ -3,7 +3,6 @@ package br.com.cwi.reset.bclaud.apiresetflix.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.com.cwi.reset.bclaud.apiresetflix.exceptions.CampoVazioException;
 import br.com.cwi.reset.bclaud.apiresetflix.exceptions.FilmeExceptions;
 import br.com.cwi.reset.bclaud.apiresetflix.models.Filme;
 import br.com.cwi.reset.bclaud.apiresetflix.models.PersonagemAtor;

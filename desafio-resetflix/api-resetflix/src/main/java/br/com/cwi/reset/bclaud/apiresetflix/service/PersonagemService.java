@@ -1,5 +1,7 @@
 package br.com.cwi.reset.bclaud.apiresetflix.service;
 
+import javax.validation.Valid;
+
 import br.com.cwi.reset.bclaud.apiresetflix.exceptions.CampoVazioException;
 import br.com.cwi.reset.bclaud.apiresetflix.models.PersonagemAtor;
 import br.com.cwi.reset.bclaud.apiresetflix.repositories.Repository;
@@ -20,32 +22,12 @@ public class PersonagemService {
         this.atorService = atorService;
     }
 
-    public PersonagemAtor criarPersonagem(PersonagemRequest request) throws CampoVazioException {
-        String checkCampos = checkNullFields(request);
-        if (checkCampos != null) {
-            throw new CampoVazioException(checkCampos);
-        }
+    public PersonagemAtor criarPersonagem(@Valid PersonagemRequest request) throws CampoVazioException {
         PersonagemAtor personagem = personagemRequestoToPersonagem(request);
         personagem.setId(idGenerator());
 
         personagemRepository.persistePersonagem(personagem);
         return personagem;
-    }
-
-    private String checkNullFields(PersonagemRequest request) {
-        if (request.getNomePersonagem() == null)
-            return "nome personagem";
-
-        if (request.getIdAtor() == null)
-            return "ator id";
-
-        if (request.getDescricaoPersonagem() == null)
-            return "descricao personagem";
-
-        if (request.getTipoAtuacao() == null)
-            return "tipo atuacao";
-
-        return null;
     }
 
     private PersonagemAtor personagemRequestoToPersonagem(PersonagemRequest request) {
