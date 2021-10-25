@@ -2,6 +2,8 @@ package br.com.cwi.reset.bclaud.apiresetflix.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +34,7 @@ public class FilmeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarFilme(@RequestBody FilmeRequest filmeRequest) {
+    public void criarFilme(@RequestBody @Valid FilmeRequest filmeRequest) {
         filmeService.criarFilme(filmeRequest);
     }
 

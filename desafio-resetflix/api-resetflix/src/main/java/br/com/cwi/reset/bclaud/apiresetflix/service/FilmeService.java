@@ -27,21 +27,6 @@ public class FilmeService {
     }
 
     public void criarFilme(FilmeRequest request) {
-        String checkCampos = checkNullFields(request);
-        if (checkCampos != null) {
-            throw new CampoVazioException(checkCampos);
-        }
-        if (isDuplicatedGenre(request)) {
-            throw new FilmeExceptions("Não é permitido informar o mesmo gênero mais de uma vez para o mesmo filme.");
-        }
-        if (isDuplicatedByActorIdAndActorName(request)) {
-            throw new FilmeExceptions(
-                    "Não é permitido informar o mesmo ator/personagem mais de uma vez para o mesmo filme.");
-        }
-        if (request.getGeneros().isEmpty()) {
-            throw new FilmeExceptions("Deve ser informado pelo menos um gênero para o cadastro do filme.");
-        }
-
         Filme filme = filmeRequestToFilme(request);
         filme.setId(idGenerator());
         filmeRepository.persisteFilme(filme);
@@ -101,34 +86,6 @@ public class FilmeService {
     private List<PersonagemAtor> createCharacterByMovieRequest(FilmeRequest request) {
         return request.getPersonagens().stream().map(p -> personagemService.criarPersonagem(p))
                 .collect(Collectors.toList());
-    }
-
-    private String checkNullFields(FilmeRequest request) {
-        if (request.getNome() == null)
-            return "nome";
-
-        if (request.getAnoLancamento() == null)
-            return "ano de lancamento";
-
-        if (request.getCapaFilme() == null)
-            return "capa filme";
-
-        if (request.getGeneros() == null)
-            return "lista de generos";
-
-        if (request.getIdDiretor() == null)
-            return "diretor id";
-
-        if (request.getIdEstudio() == null)
-            return "estudio id";
-
-        if (request.getResumo() == null)
-            return "resumo";
-
-        if (request.getPersonagens() == null)
-            return "personagens";
-
-        return null;
     }
 
     private Long idGenerator() {
