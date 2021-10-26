@@ -2,16 +2,30 @@ package br.com.cwi.reset.bclaud.apiresetflix.models;
 
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import br.com.cwi.reset.bclaud.apiresetflix.enums.StatusCarreira;
 
+@Entity
 public class Ator {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private LocalDate dataNascimento;
+    @Enumerated(EnumType.STRING)
     private StatusCarreira statusCarreira;
     private Integer anoInicioAtividade;
     
+    public Ator(){
+    }
+
     public Ator(String nome, LocalDate dataNascimento, StatusCarreira statusCarreira,
             Integer anoInicioAtividade) {
         this.nome = nome;

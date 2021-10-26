@@ -2,9 +2,18 @@ package br.com.cwi.reset.bclaud.apiresetflix.models;
 
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import br.com.cwi.reset.bclaud.apiresetflix.enums.StatusAtividade;
 
+@Entity
 public class Estudio {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String descricao;

@@ -2,17 +2,27 @@ package br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import br.com.cwi.reset.bclaud.apiresetflix.enums.Genero;
 
 public class FilmeRequest {
 
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo nome.")
     private String nome;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo anoLancamento.")
     private Integer anoLancamento;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo capaFilme.")
     private String capaFilme;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo generos.")
     private List<Genero> generos;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo idDiretor.")
     private Long idDiretor;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo idEstudio.")
     private Long idEstudio;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo resumo.")
     private String resumo;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo personagens.")
     private List<PersonagemRequest> personagens;
 
     public FilmeRequest(){
