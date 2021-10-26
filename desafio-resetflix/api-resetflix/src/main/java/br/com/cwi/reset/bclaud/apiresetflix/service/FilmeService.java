@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.cwi.reset.bclaud.apiresetflix.exceptions.CampoVazioException;
 import br.com.cwi.reset.bclaud.apiresetflix.exceptions.FilmeExceptions;
 import br.com.cwi.reset.bclaud.apiresetflix.models.Filme;
 import br.com.cwi.reset.bclaud.apiresetflix.models.PersonagemAtor;
@@ -66,6 +67,17 @@ public class FilmeService {
         }
 
         return listaFiltrada;
+    }
+
+    public void removerFilme(Long id) {
+        if (id == null) {
+            throw new CampoVazioException("id");
+        }
+
+        Filme filmeParaRemover = filmeRepository.findById(id).orElseThrow(() -> new FilmeExceptions(
+                "Nenhum filme encontrado com o parâmetro id={}, favor verifique os parâmetros informados."));
+
+        filmeRepository.delete(filmeParaRemover);
     }
 
     private boolean isDuplicatedGenre(FilmeRequest request) {
