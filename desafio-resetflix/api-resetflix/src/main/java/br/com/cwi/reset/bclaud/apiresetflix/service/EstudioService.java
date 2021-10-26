@@ -4,25 +4,20 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.com.cwi.reset.bclaud.apiresetflix.exceptions.CampoVazioException;
 import br.com.cwi.reset.bclaud.apiresetflix.exceptions.EstudioExceptions;
 import br.com.cwi.reset.bclaud.apiresetflix.models.Estudio;
-import br.com.cwi.reset.bclaud.apiresetflix.repositories.Repository;
+import br.com.cwi.reset.bclaud.apiresetflix.repositories.EstudioRepository;
 import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.EstudioRequest;
 
+@Service
 public class EstudioService {
 
-    public static EstudioService estudioService = new EstudioService(Repository.getInstance());
-
-    public static EstudioService getInstance(){
-        return estudioService;
-    }
-
-    Repository estudioRepository;
-
-    public EstudioService(Repository diretorRepository){
-        this.estudioRepository = diretorRepository;
-    }
+    @Autowired
+    EstudioRepository estudioRepository;
 
     public void criarEstudio(EstudioRequest request) throws EstudioExceptions, CampoVazioException{
 
@@ -36,15 +31,14 @@ public class EstudioService {
             throw new EstudioExceptions("Não é possível cadastrar estúdios do futuro.");
         }
 
-        estudio.setId(idGenerator());
-        estudioRepository.persisteEstudio(estudio);
+        estudioRepository.save(estudio);
     }
 
     public List<Estudio> consultarEstudios() throws EstudioExceptions{
-        if(estudioRepository.recuperaEstudios().isEmpty()){
+        if(estudioRepository.findAll().isEmpty()){
             throw new EstudioExceptions("Nenhum estúdio cadastrado, favor cadastar estúdios.");
         }
-        return estudioRepository.recuperaEstudios();
+        return estudioRepository.findAll();
     }
 
     public List<Estudio> consultarEstudios(String filtroNome) throws EstudioExceptions{
@@ -60,11 +54,11 @@ public class EstudioService {
     }
 
     public Estudio consultarEstudio(Long id){
-        return estudioRepository.consultarEstudio(id).orElseThrow(() -> new EstudioExceptions("Nenhum estúdio encontrado com o parâmetro id="+id+", favor verifique os parâmetros informados."));
+        return estudioRepository.findById(id).orElseThrow(() -> new EstudioExceptions("Nenhum estúdio encontrado com o parâmetro id="+id+", favor verifique os parâmetros informados."));
     }
 
     private boolean isDuplicated(Estudio estudio){
-        return estudioRepository.recuperaEstudios().stream()
+        return estudioRepository.findAll().stream()
         .anyMatch(e -> e.getNome().equalsIgnoreCase(estudio.getNome()));
     }
 
@@ -79,9 +73,5 @@ public class EstudioService {
         estudio.setDataCriacao(request.getDataCriacao());
         estudio.setStatusAtividade(request.getStatusAtividade());
         return estudio;
-    }
-
-    private Long idGenerator(){
-        return (long) estudioRepository.recuperaEstudios().size() + 1;
     }
 }

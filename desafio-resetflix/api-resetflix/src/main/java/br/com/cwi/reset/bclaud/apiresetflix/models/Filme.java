@@ -2,22 +2,45 @@ package br.com.cwi.reset.bclaud.apiresetflix.models;
 
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.ManyToAny;
+
 import br.com.cwi.reset.bclaud.apiresetflix.enums.Genero;
 
+@Entity
 public class Filme {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private Integer anoLancamento;
     private String capaFilme;
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
     private List<Genero> generos;
+    @ManyToOne
+    @JoinColumn(name = "id_diretor")
     private Diretor diretor;
+    @ManyToOne
+    @JoinColumn(name = "id_estudio")
     private Estudio estudio;
+    @OneToMany
+    @JoinColumn(name = "id_personagem_ator")
     private List<PersonagemAtor> personagens;
     private String resumo;
 
     public Filme(){
-
     }
 
     public Long getId() {

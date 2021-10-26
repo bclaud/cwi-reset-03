@@ -4,24 +4,20 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.com.cwi.reset.bclaud.apiresetflix.exceptions.CampoVazioException;
 import br.com.cwi.reset.bclaud.apiresetflix.exceptions.DiretorExceptions;
 import br.com.cwi.reset.bclaud.apiresetflix.models.Diretor;
-import br.com.cwi.reset.bclaud.apiresetflix.repositories.Repository;
+import br.com.cwi.reset.bclaud.apiresetflix.repositories.DiretorRepository;
 import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.DiretorRequest;
 
+@Service
 public class DiretorService {
-    Repository diretorRepository;
-
-    public static DiretorService diretorService = new DiretorService(Repository.getInstance());
-
-    public static DiretorService getInstance(){
-        return diretorService;
-    }    
-
-    public DiretorService(Repository diretorRepository){
-        this.diretorRepository = diretorRepository;
-    }
+    
+    @Autowired
+    DiretorRepository diretorRepository;
 
     public void cadastrarDiretor(DiretorRequest request) throws DiretorExceptions, CampoVazioException{
         Diretor diretor = diretorRequestToDiretor(request);
@@ -38,12 +34,11 @@ public class DiretorService {
             throw new DiretorExceptions("Deve ser informado no mínimo nome e sobrenome para o diretor.");
         }
 
-        diretor.setId(idGenerator());
-        diretorRepository.persisteDiretor(diretor);
+        diretorRepository.save(diretor);
     }
 
     public List<Diretor> listarDiretores(String filtroNome) throws DiretorExceptions{
-        List<Diretor> listaDiretoresFiltrado = diretorRepository.recuperaDiretores().stream()
+        List<Diretor> listaDiretoresFiltrado = diretorRepository.findAll().stream()
         .filter(diretor -> diretor.getNome().toUpperCase().contains(filtroNome.toUpperCase()))
         .collect(Collectors.toList());
 
@@ -55,7 +50,7 @@ public class DiretorService {
     }
 
     public List<Diretor> listarDiretores() throws DiretorExceptions{
-        List<Diretor> listaDiretor = diretorRepository.recuperaDiretores().stream()
+        List<Diretor> listaDiretor = diretorRepository.findAll().stream()
         .collect(Collectors.toList());
 
         if(listaDiretor.isEmpty()){
@@ -70,12 +65,12 @@ public class DiretorService {
             throw new CampoVazioException("id");
         }
 
-        return diretorRepository.consultarDiretor(id)
+        return diretorRepository.findById(id)
         .orElseThrow(() -> new DiretorExceptions("Nenhum diretor encontrado com o parâmetro id="+id+", favor verifique os parâmetros informados."));
     }
 
     private boolean isDuplicated(Diretor diretor){
-        return diretorRepository.recuperaDiretores().stream()
+        return diretorRepository.findAll().stream()
         .anyMatch(d -> d.getNome().equalsIgnoreCase(diretor.getNome()));
     }
 
@@ -95,7 +90,4 @@ public class DiretorService {
         return new Diretor(request.getNome(), request.getDataNascimento(), request.getAnoInicioAtividade());
     }
 
-    private Long idGenerator(){
-        return (long) diretorRepository.recuperaDiretores().size() + 1;
-    }
 }

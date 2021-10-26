@@ -2,12 +2,24 @@ package br.com.cwi.reset.bclaud.apiresetflix.models;
 
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Diretor {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private LocalDate dataNascimento;
     private Integer anoInicioAtividade;
+
+    public Diretor(){
+        
+    }
     
     public Diretor(String nome, LocalDate dataNascimento, Integer anoInicioAtividade) {
         this.nome = nome;

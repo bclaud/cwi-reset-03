@@ -1,12 +1,27 @@
 package br.com.cwi.reset.bclaud.apiresetflix.models;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import br.com.cwi.reset.bclaud.apiresetflix.enums.TipoAtuacao;
 
+@Entity
 public class PersonagemAtor {
-    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "id_ator")
     private Ator ator;
     private String nomePersonagem;
+    @Enumerated(EnumType.STRING)
     private TipoAtuacao tipoAtuacao;
 
     public PersonagemAtor() {

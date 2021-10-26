@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cwi.reset.bclaud.apiresetflix.models.Estudio;
-import br.com.cwi.reset.bclaud.apiresetflix.repositories.Repository;
 import br.com.cwi.reset.bclaud.apiresetflix.service.EstudioService;
 import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.EstudioRequest;
 
@@ -23,11 +23,8 @@ import br.com.cwi.reset.bclaud.apiresetflix.service.requestmodels.EstudioRequest
 @RequestMapping("estudios")
 public class EstudioController {
     
+    @Autowired
     private EstudioService estudioService;
-
-    public EstudioController(){
-        this.estudioService = new EstudioService(Repository.getInstance());
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
