@@ -80,7 +80,7 @@ public class AtorService {
         return listaAtores;
     }
 
-    public void atualizarVoid(Long id, AtorRequest request) {
+    public void atualizarAtor(Long id, AtorRequest request) {
         Ator atorAtualizado = atorRequestToAtor(request);
         atorAtualizado.setId(consultarAtor(id).getId());
         if (isDuplicated(atorAtualizado)) {

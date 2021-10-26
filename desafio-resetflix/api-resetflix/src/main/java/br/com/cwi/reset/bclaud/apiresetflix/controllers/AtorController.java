@@ -62,7 +62,7 @@ public class AtorController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void atualizarAtor(@PathVariable Long id, @RequestBody AtorRequest request){
-        atorService.atualizarVoid(id, request);
+        atorService.atualizarAtor(id, request);
     }
 
     @DeleteMapping("/{id}")
