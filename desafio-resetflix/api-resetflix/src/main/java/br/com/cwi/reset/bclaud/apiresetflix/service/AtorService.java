@@ -19,6 +19,8 @@ public class AtorService {
 
     @Autowired
     private AtorRepository atorRepository;
+    @Autowired
+    private PersonagemService personagemService;
 
     public void criarAtor(AtorRequest request) throws AtorExceptions {
 
@@ -76,6 +78,31 @@ public class AtorService {
             throw new AtorExceptions("Nenhum ator cadastrado, favor cadastar atores.");
         }
         return listaAtores;
+    }
+
+    public void atualizarVoid(Long id, AtorRequest request) {
+        Ator atorAtualizado = atorRequestToAtor(request);
+        atorAtualizado.setId(consultarAtor(id).getId());
+        if (isDuplicated(atorAtualizado)) {
+            throw new AtorExceptions("Já existe um ator cadastrado para o nome " + atorAtualizado.getNome());
+        }
+
+        atorRepository.save(atorAtualizado);
+    }
+
+    public void removerAtor(Long id) {
+        Ator atorParaRemover = consultarAtor(id);
+
+        if (hasCharacters(atorParaRemover)) {
+            throw new AtorExceptions(
+                    "Este ator está vinculado a um ou mais personagens, para remover o ator é necessário remover os seus personagens de atuação.");
+        }
+        atorRepository.delete(atorParaRemover);
+    }
+
+    private boolean hasCharacters(Ator ator) {
+        return personagemService.consultarPersonagens().stream()
+                .anyMatch(p -> p.getAtor().getNome().equalsIgnoreCase(ator.getNome()));
     }
 
     private boolean isDuplicated(Ator ator) {

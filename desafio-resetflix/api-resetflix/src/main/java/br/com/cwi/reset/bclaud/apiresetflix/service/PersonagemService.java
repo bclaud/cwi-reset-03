@@ -1,5 +1,7 @@
 package br.com.cwi.reset.bclaud.apiresetflix.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,10 @@ public class PersonagemService {
 
         personagemRepository.save(personagem);
         return personagem;
+    }
+
+    public List<PersonagemAtor> consultarPersonagens(){
+        return personagemRepository.findAll();
     }
 
     private PersonagemAtor personagemRequestoToPersonagem(PersonagemRequest request) {
