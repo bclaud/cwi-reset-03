@@ -88,7 +88,6 @@ public class Exercicios1Test {
         Double expected = 0.0;
         Double actual = metodos.calcularMedia(listaInteiros);
 
-        
         Assertions.assertEquals(expected, actual);
     }
 
@@ -121,7 +120,7 @@ public class Exercicios1Test {
     @Test
     void obterPalavraInvertida_QuandoPessego() {
         String palavra = "Pessego";
-        String expected = "ogesseP"        ;
+        String expected = "ogesseP";
         String actual = metodos.obterPalavraInvertida(palavra);
 
         Assertions.assertEquals(expected, actual);
@@ -135,4 +134,13 @@ public class Exercicios1Test {
 
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    void ordenarLista_NumerosInteirosComNegativos() {
+        List<Integer> lista = Arrays.asList(5, 11, 1, 90, 111, -1);
+        List<Integer> expected = Arrays.asList(-1, 1, 5, 11, 90, 111);
+        List<Integer> actual = metodos.ordenarLista(lista);
+        Assertions.assertEquals(expected, actual);
+    }
+
 }
